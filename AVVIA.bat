@@ -58,6 +58,11 @@ if "%NEEDS_INSTALL%"=="1" (
     echo Leggi il messaggio qui sopra; per better-sqlite3 usa Node.js 22 LTS.
     goto :failed
   )
+  echo [1.5/4] Installazione del browser headless per la generazione PDF...
+  call npx playwright install chromium
+  if errorlevel 1 (
+    echo [AVVISO] Impossibile installare il browser per i PDF. Potrebbe non funzionare l'export PDF.
+  )
   > "%NODE_STAMP%" echo %NODE_VERSION%
 )
 
@@ -86,10 +91,10 @@ if not errorlevel 1 (
 )
 
 echo [2/4] Avvio del server locale...
-start "StudyGenius+ API" /min cmd /d /c "cd /d ""%CD%"" ^&^& npm run dev:server ^> ""%DATA_DIR%\server.log"" 2^>^&1"
+start "StudyGenius+ API" /min cmd /c "npm run dev:server > "%DATA_DIR%\server.log" 2>&1"
 
 echo [3/4] Avvio dell'interfaccia...
-start "StudyGenius+ Web" /min cmd /d /c "cd /d ""%CD%"" ^&^& npm run dev:web ^> ""%DATA_DIR%\web.log"" 2^>^&1"
+start "StudyGenius+ Web" /min cmd /c "npm run dev:web > "%DATA_DIR%\web.log" 2>&1"
 
 echo [4/4] Attendo che l'interfaccia sia pronta...
 for /l %%I in (1,1,30) do (

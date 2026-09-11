@@ -3,6 +3,7 @@ import { createServer as createHttpServer } from 'node:http';
 import { existsSync, mkdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { getDatabase } from '../../../packages/storage/src/database.js';
+import { startBatchWorker } from './studio/batch_worker.js';
 
 function run(): void {
   loadLocalEnv(join(process.cwd(), '.env'));
@@ -17,6 +18,9 @@ function run(): void {
   const db = getDatabase(join(dataDirectory, 'study-genius.sqlite'));
   const app = createServer(db, join(dataDirectory, 'blobs'));
   const server = createHttpServer(app);
+
+  const blobStorePath = join(dataDirectory, 'blobs');
+  startBatchWorker(db, blobStorePath);
 
   const shutdown = () => {
     server.close(() => {

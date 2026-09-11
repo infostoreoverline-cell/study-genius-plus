@@ -28,4 +28,12 @@ export class BlobStore {
     }
     return null;
   }
+
+  public getPath(hash: string): string | null {
+    const path = join(this.basePath, hash);
+    if (existsSync(path)) {
+      return path;
+    }
+    return null;
+  }
 }

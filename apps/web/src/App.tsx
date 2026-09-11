@@ -310,6 +310,16 @@ function App() {
     );
   };
 
+  const downloadMasterPdf = async () => {
+    if (!activeProject) return;
+    await downloadBlob(
+      `/projects/${activeProject.id}/download/pdf`,
+      `${safeFileName(activeProject.title)}-dispensa-completa.pdf`,
+      'Download Dispensa Completa PDF non disponibile.',
+      setError
+    );
+  };
+
   const downloadVisual = async (visual: StudyVisual) => {
     await downloadBlob(
       `/visuals/${visual.id}/download`,
@@ -519,12 +529,17 @@ function App() {
               ) : (
                 <div className="empty-workspace">
                   <div className="empty-icon">⌁</div>
-                  <h2>{activeProject ? 'Il prossimo risultato apparirà qui' : 'Inizia da un progetto'}</h2>
+                  <h2>{activeProject ? 'Risultati e Dispense' : 'Inizia da un progetto'}</h2>
                   <p>{activeProject
-                    ? 'Carica una fonte e genera il primo riassunto. Ogni output resterà disponibile nell’archivio locale.'
+                    ? 'Seleziona un riassunto dall\'archivio o crea una dispensa completa.'
                     : 'Crea un progetto sulla sinistra per organizzare appunti, dispense e riassunti.'}
                   </p>
-                  {activeProfile && <div className="profile-note"><strong>Profilo attivo:</strong> {activeProfile.name} — {activeProfile.focus}</div>}
+                  {activeProject && outputs.length > 0 && (
+                    <button className="button button-primary" style={{ marginTop: '1rem' }} type="button" onClick={() => void downloadMasterPdf()}>
+                      Scarica Dispensa Completa (PDF)
+                    </button>
+                  )}
+                  {activeProfile && <div className="profile-note" style={{ marginTop: '2rem' }}><strong>Profilo attivo:</strong> {activeProfile.name} — {activeProfile.focus}</div>}
                 </div>
               )}
             </section>
@@ -587,12 +602,19 @@ function App() {
               </div>
             </div>
             <div className="card archive-outputs">
-              <div className="section-title">
+              <div className="section-title" style={{ alignItems: 'flex-start' }}>
                 <div>
                   <p className="eyebrow">{activeProject?.title ?? 'Seleziona un progetto'}</p>
                   <h2>Riassunti salvati</h2>
                 </div>
-                <span>{outputs.length}</span>
+                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                  <span>{outputs.length}</span>
+                  {activeProject && outputs.length > 0 && (
+                    <button className="button button-primary" style={{ padding: '0.25rem 0.75rem', fontSize: '0.85em' }} type="button" onClick={() => void downloadMasterPdf()}>
+                      Scarica Dispensa (PDF)
+                    </button>
+                  )}
+                </div>
               </div>
               <div className="output-list">
                 {!activeProject && <p className="muted">Seleziona un progetto per vederne i risultati.</p>}

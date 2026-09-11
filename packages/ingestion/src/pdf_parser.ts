@@ -1,5 +1,7 @@
-import pdf from 'pdf-parse';
-import { BaseParser, ParseResult, SourceUnit } from './parser.js';
+import * as pdfParseModule from 'pdf-parse';
+import { BaseParser, type ParseResult, type SourceUnit } from './parser.js';
+
+const pdf = (pdfParseModule as any).default || pdfParseModule;
 
 export class PdfParser extends BaseParser {
   async parse(buffer: Buffer, mimeType: string): Promise<ParseResult> {
@@ -12,9 +14,8 @@ export class PdfParser extends BaseParser {
     const units: SourceUnit[] = [];
 
     let currentPage = 1;
-    let pageTextBuffer = '';
+    let fullText = '';
 
-    // Custom render page function to capture page by page
     const render_page = async (pageData: any) => {
       const render_options = {
         normalizeWhitespace: false,
@@ -23,22 +24,44 @@ export class PdfParser extends BaseParser {
       
       const textContent = await pageData.getTextContent(render_options);
       let lastY, text = '';
+      let pageEmpty = true;
+      
       for (let item of textContent.items) {
+        pageEmpty = false;
+        // Fix per font matematici comuni o simboli greci
+        let str = item.str;
+        if (str.includes('\uF02D')) str = str.replace(/\uF02D/g, '-');
+        
         if (lastY == item.transform[5] || !lastY){
-            text += item.str;
+            text += str;
         } else {
-            text += '\n' + item.str;
+            text += '\n' + str;
         }    
         lastY = item.transform[5];
       }
 
-      const originalText = text;
-      const normalizedText = this.normalizeText(text);
-      const detection = this.detectAnomalies(normalizedText);
-
-      if (detection.needsReview) {
-        anomalies.push(`Page ${currentPage} might need OCR or review.`);
+      // Rilevamento OCR
+      if (pageEmpty || text.trim().length < 50) {
+        anomalies.push(`Pagina ${currentPage} potrebbe richiedere OCR (troppo poco testo).`);
       }
+
+      // Pulizia base per intestazioni e piè di pagina ripetuti (naive)
+      const lines = text.split('\n');
+      if (lines.length > 5) {
+        if (/^\s*\d+\s*$/.test(lines[0]) || /^\s*Pagina \d+/.test(lines[0])) lines.shift();
+        if (/^\s*\d+\s*$/.test(lines[lines.length - 1])) lines.pop();
+      }
+      text = lines.join('\n');
+      
+      // Fix testo spezzato: unisci righe che non terminano con punteggiatura
+      text = text.replace(/([^\.\!\?\:\;])\n([a-z])/g, '$1 $2');
+
+      const originalText = text;
+      // Prepend page marker per il contesto AI
+      const pageMarkedText = `[Pagina ${currentPage}]\n${text}`;
+      
+      const normalizedText = this.normalizeText(pageMarkedText);
+      const detection = this.detectAnomalies(normalizedText);
 
       units.push({
         id: `page_${currentPage}`,
@@ -48,14 +71,19 @@ export class PdfParser extends BaseParser {
         needsReview: detection.needsReview
       });
 
+      fullText += pageMarkedText + '\n\n';
       currentPage++;
-      return text;
+      return pageMarkedText;
     };
 
     try {
       await pdf(buffer, { pagerender: render_page });
     } catch (err: any) {
-      anomalies.push(`Fatal error parsing PDF: ${err.message}`);
+      anomalies.push(`Errore fatale parsing PDF: ${err.message}`);
+    }
+
+    if (fullText.trim().length < 100) {
+      anomalies.push('Il documento intero sembra richiedere OCR (solo immagini o scansioni).');
     }
 
     return {

@@ -1,4 +1,4 @@
-export type StudioProvider = 'gemini' | 'deepseek';
+export type StudioProvider = 'gemini' | 'deepseek' | 'demo' | 'local';
 
 export interface StudioProfile {
   id: string;
@@ -13,6 +13,17 @@ export interface StudyGenerationInput {
   sourceText: string;
   profile: StudioProfile;
   mode: string;
+}
+
+export interface ExtractedEvidence {
+  sourceName: string;
+  pages: Array<{
+    pageNumber: string;
+    text: string;
+    formulas: string[];
+    concepts: string[];
+    visualDescriptions: string[];
+  }>;
 }
 
 export const STUDIO_PROFILES: readonly StudioProfile[] = [
@@ -79,7 +90,9 @@ Vincoli non negoziabili:
 - Usa esclusivamente le informazioni presenti nella fonte. Non completare con conoscenze esterne.
 - Se una parte non e chiara, incompleta o illeggibile, dichiaralo esplicitamente.
 - Mantieni formule, simboli, nomi e numeri presenti nella fonte senza alterarne il significato.
-- Organizza il risultato con: Titolo, Panoramica, Concetti chiave, Collegamenti logici, Punti da verificare, Domande di ripasso.
+- Usa rigorosamente la sintassi LaTeX per la matematica: $x^2$ per le formule inline e $$x^2$$ per le formule a blocco isolate. Non usare \\( o \\[.
+- Per ogni concetto o formula importante, riporta il riferimento di pagina originale se presente (es. [Pagina 4]).
+- Organizza il risultato con: Titolo, Panoramica, Concetti chiave (con definizioni ed esempi), Formule essenziali (se applicabile), Collegamenti logici, Punti da verificare, Domande di ripasso.
 - Profilo disciplinare: ${input.profile.name}. Concentrati su ${input.profile.focus}.
 ${rules}
 
@@ -153,6 +166,61 @@ export async function generateWithProvider(
     throw new Error('Il provider non ha restituito testo.');
   }
   return output.trim();
+}
+
+export async function generateStudySummary(
+  provider: StudioProvider,
+  apiKey: string,
+  model: string,
+  input: StudyGenerationInput
+): Promise<string> {
+  const CHUNK_SIZE = 60_000;
+  const sourceText = input.sourceText;
+  
+  if (sourceText.length <= CHUNK_SIZE) {
+    return generateWithProvider(provider, apiKey, model, buildStudyPrompt(input));
+  }
+
+  // Split into chunks
+  const chunks: string[] = [];
+  let currentChunk = '';
+  const paragraphs = sourceText.split(/\n\n+/);
+  for (const p of paragraphs) {
+    if (currentChunk.length + p.length > CHUNK_SIZE && currentChunk.length > 0) {
+      chunks.push(currentChunk);
+      currentChunk = '';
+    }
+    currentChunk += p + '\n\n';
+  }
+  if (currentChunk.trim().length > 0) {
+    chunks.push(currentChunk);
+  }
+
+  // Map: Generate summary for each chunk
+  const chunkSummaries: string[] = [];
+  for (let i = 0; i < chunks.length; i++) {
+    const chunkInput = { ...input, sourceText: chunks[i], mode: `RIASSUNTO (Parte ${i + 1} di ${chunks.length})` };
+    const summary = await generateWithProvider(provider, apiKey, model, buildStudyPrompt(chunkInput));
+    chunkSummaries.push(summary);
+  }
+
+  // Reduce: Combine all summaries into a final one
+  const combinedText = chunkSummaries.map((s, i) => `--- RIASSUNTO PARTE ${i + 1} ---\n${s}`).join('\n\n');
+  
+  const finalPrompt = `Sei StudyGenius+, un assistente per lo studio universitario. Sintetizza e consolida i riassunti parziali forniti qui sotto in un unico riassunto strutturato in Markdown.
+  
+Vincoli non negoziabili:
+- Organizza il risultato con: Titolo, Panoramica, Concetti chiave (con definizioni ed esempi), Formule essenziali (se applicabile), Collegamenti logici, Punti da verificare, Domande di ripasso.
+- Usa correttamente la sintassi matematica LaTeX (es. $x^2$ per inline, $$x^2$$ per blocchi). Non usare \\( o \\[.
+- Mantenere e accorpare le definizioni, formule, esempi e i riferimenti [Pagina X].
+- Profilo disciplinare: ${input.profile.name}. Concentrati su ${input.profile.focus}.
+${input.profile.rules.map(r => `- ${r}`).join('\n')}
+
+--- INIZIO RIASSUNTI PARZIALI ---
+${limitText(combinedText, 120_000)}
+--- FINE RIASSUNTI PARZIALI ---`;
+
+  return generateWithProvider(provider, apiKey, model, finalPrompt);
 }
 
 export function createDemoSummary(input: StudyGenerationInput): string {
@@ -278,4 +346,135 @@ function limitText(text: string, maximum: number): string {
 
 function cleanInline(value: string): string {
   return value.replace(/[\r\n`]/gu, ' ').trim();
+}
+
+export async function extractEvidenceWithGemini(
+  apiKey: string,
+  model: string,
+  filePath: string,
+  sourceName: string
+): Promise<string> {
+  const prompt = `Sei un estrattore OCR avanzato. Analizza il documento visivo allegato (PDF/Immagine).
+Estrai tutto il testo leggibile, le formule matematiche (usando sintassi LaTeX) e descrivi le informazioni presenti in grafici o tabelle.
+Mantieni l'associazione per pagina. 
+Rispondi ESCLUSIVAMENTE con un JSON valido strutturato in questo modo, senza markdown \`\`\`json:
+{
+  "sourceName": "${sourceName}",
+  "pages": [
+    {
+      "pageNumber": "1",
+      "text": "testo pulito estratto...",
+      "formulas": ["formula LaTeX 1"],
+      "concepts": ["concetto chiave 1"],
+      "visualDescriptions": ["descrizione del grafico..."]
+    }
+  ]
+}`;
+
+  type GeminiModule = any;
+  const sdk = await import('@google/genai') as GeminiModule;
+  const client = new sdk.GoogleGenAI({ apiKey });
+
+  const file = await client.files.upload({
+    file: filePath,
+    config: {
+      displayName: sourceName,
+      mimeType: 'application/pdf',
+    },
+  });
+
+  try {
+    let getFile = await client.files.get({ name: file.name });
+    while (getFile.state === 'PROCESSING') {
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      getFile = await client.files.get({ name: file.name });
+    }
+
+    if (getFile.state === 'FAILED') {
+      throw new Error("L'elaborazione del file su Gemini è fallita.");
+    }
+
+    const content = [
+      prompt,
+      sdk.createPartFromUri(file.uri, file.mimeType)
+    ];
+
+    const response = await client.models.generateContent({
+      model,
+      contents: content,
+      config: { maxOutputTokens: 8192, responseMimeType: 'application/json' }
+    });
+
+    const directText = typeof response.text === 'string' ? response.text : '';
+    const partText = response.candidates?.[0]?.content?.parts
+      ?.map((part: any) => typeof part.text === 'string' ? part.text : '')
+      .join('') ?? '';
+    const output = (directText || partText).trim();
+    if (!output) throw new Error('Il provider non ha restituito testo.');
+    
+    // Assicuriamoci che non ci siano markdown backticks
+    return output.replace(/^```json\n/, '').replace(/\n```$/, '').trim();
+  } finally {
+    try {
+      await client.files.delete({ name: file.name });
+    } catch (e) {
+      console.warn('Failed to delete file from Gemini API', e);
+    }
+  }
+}
+
+export async function synthesizeWithDeepSeek(
+  apiKey: string,
+  model: string,
+  input: Omit<StudyGenerationInput, 'sourceText'>,
+  evidenceJson: string
+): Promise<string> {
+  const rules = input.profile.rules.map((rule) => `- ${rule}`).join('\n');
+  const prompt = `Sei StudyGenius+, un assistente per lo studio universitario. Scrivi in italiano un riassunto rigoroso in Markdown partendo dai Dati Strutturati (JSON) estratti dalla fonte originale.
+
+Vincoli non negoziabili:
+- Usa esclusivamente le informazioni presenti nel JSON. Non completare con conoscenze esterne.
+- Usa rigorosamente la sintassi LaTeX per la matematica: $x^2$ per le formule inline e $$x^2$$ per le formule a blocco isolate. Non usare \\( o \\[.
+- Per ogni concetto o formula importante, riporta il riferimento di pagina originale estratto dal JSON (es. [Pagina 4]).
+- Organizza il risultato con: Titolo, Panoramica, Concetti chiave (con definizioni ed esempi), Formule essenziali (se applicabile), Collegamenti logici, Punti da verificare, Domande di ripasso.
+- Profilo disciplinare: ${input.profile.name}. Concentrati su ${input.profile.focus}.
+${rules}
+
+Progetto: ${input.title}
+File sorgente: ${input.sourceName}
+Modalita richiesta: ${input.mode}
+
+--- INIZIO DATI STRUTTURATI ESTRATTI (JSON) ---
+${evidenceJson}
+--- FINE DATI STRUTTURATI ---`;
+
+  const response = await fetch('https://api.deepseek.com/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${apiKey}`
+    },
+    body: JSON.stringify({
+      model,
+      messages: [
+        { role: 'system', content: 'Rispondi solo con il documento Markdown richiesto.' },
+        { role: 'user', content: prompt }
+      ],
+      max_tokens: 8000,
+      temperature: 0.2
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error(`Il provider DeepSeek ha risposto con stato ${response.status}.`);
+  }
+
+  const data = await response.json() as {
+    choices?: Array<{ message?: { content?: unknown } }>;
+  };
+  const output = data.choices?.[0]?.message?.content;
+  if (typeof output !== 'string' || !output.trim()) {
+    throw new Error('Il provider non ha restituito testo.');
+  }
+  return output.trim();
 }

@@ -7,35 +7,58 @@ export function createSettingsRouter(dbPath: string) {
   const router = Router();
   const secretStore = new SecretStore();
 
-  router.post('/keys', async (req: Request, res: Response): Promise<void> => {
-    try {
-      const { provider, secret, label } = req.body;
-      if (!provider || !secret || secret.trim().length < 5) {
-        res.status(400).json({ error: 'Invalid secret payload' });
-        return;
-      }
+  router.get('/settings', (req: Request, res: Response) => {
+    const db = getDatabase(dbPath);
+    const accounts = db.prepare('SELECT provider FROM provider_accounts').all() as { provider: string }[];
+    
+    const configuredProviders = accounts.map(a => a.provider);
+    const geminiConfigured = configuredProviders.includes('gemini');
+    const deepseekConfigured = configuredProviders.includes('deepseek');
+    
+    res.json({
+      configured: geminiConfigured && deepseekConfigured,
+      geminiConfigured,
+      deepseekConfigured,
+      source: 'database'
+    });
+  });
 
+  router.post('/settings', async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { geminiKey, deepseekKey } = req.body;
       const db = getDatabase(dbPath);
       
-      const accountId = crypto.randomUUID();
-      const encryptedBase64 = await secretStore.put(accountId, secret);
-      const version = new Date().toISOString();
+      const saveKey = async (provider: string, secret: string) => {
+        if (!secret || secret.trim().length < 5) return;
+        // Upsert logic
+        const existing = db.prepare('SELECT id FROM provider_accounts WHERE provider = ?').get(provider) as { id: string } | undefined;
+        let accountId = existing?.id;
+        
+        if (!accountId) {
+          accountId = crypto.randomUUID();
+        }
+        
+        const encryptedBase64 = await secretStore.put(accountId, secret.trim());
+        const version = new Date().toISOString();
 
-      db.prepare(`
-        INSERT INTO provider_accounts (id, provider, label, quota_group_id, credential_ref, credential_version)
-        VALUES (?, ?, ?, ?, ?, ?)
-      `).run(accountId, provider, label || provider, 'default-quota', encryptedBase64, version);
+        if (existing) {
+          db.prepare(`UPDATE provider_accounts SET credential_ref = ?, credential_version = ? WHERE id = ?`)
+            .run(encryptedBase64, version, accountId);
+        } else {
+          db.prepare(`
+            INSERT INTO provider_accounts (id, provider, label, quota_group_id, credential_ref, credential_version)
+            VALUES (?, ?, ?, ?, ?, ?)
+          `).run(accountId, provider, provider, 'default-quota', encryptedBase64, version);
+        }
+      };
 
-      res.status(201).json({ success: true, accountId });
+      if (geminiKey) await saveKey('gemini', geminiKey);
+      if (deepseekKey) await saveKey('deepseek', deepseekKey);
+
+      res.status(200).json({ success: true });
     } catch (error: any) {
       res.status(500).json({ error: error.message });
     }
-  });
-
-  router.get('/keys/status', (req: Request, res: Response) => {
-    const db = getDatabase(dbPath);
-    const accounts = db.prepare('SELECT id, provider, label, credential_version FROM provider_accounts').all();
-    res.json(accounts);
   });
 
   return router;

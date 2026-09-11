@@ -4,11 +4,15 @@ import type Database from 'better-sqlite3';
 import { Router } from 'express';
 import type { NextFunction, Request, Response } from 'express';
 import multer from 'multer';
+import { PdfParser } from '../../../../../packages/ingestion/src/pdf_parser.js';
 import { BlobStore } from '../../../../../packages/storage/src/blob_store.js';
 import {
   buildStudyPrompt,
   createDemoSummary,
   generateWithProvider,
+  generateStudySummary,
+  extractEvidenceWithGemini,
+  synthesizeWithDeepSeek,
   getDefaultModel,
   STUDIO_PROFILES,
   type StudioProfile,
@@ -16,6 +20,7 @@ import {
 } from '../../studio/generator.js';
 import { createStudyPdf } from '../../studio/pdf.js';
 import { createStudyVisuals } from '../../studio/visuals.js';
+import { getSettings } from '../../studio/settings.js';
 
 type SqliteDatabase = Database.Database;
 
@@ -78,8 +83,8 @@ type VisualRow = {
   created_at: string;
 };
 
-const MAX_FILE_SIZE = 15 * 1024 * 1024;
-const MAX_STORED_TEXT = 300_000;
+const MAX_FILE_SIZE = 100 * 1024 * 1024;
+const MAX_STORED_TEXT = 5_000_000;
 const ALLOWED_EXTENSIONS = new Set(['.pdf', '.txt', '.md', '.markdown']);
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -93,7 +98,7 @@ const profilesById = new Map<string, StudioProfile>(
 export function createStudioRouter(db: SqliteDatabase, blobStorePath: string): Router {
   const router = Router();
   const blobStore = new BlobStore(blobStorePath);
-  let settings = settingsFromEnvironment();
+
 
   router.get('/health', (_req: Request, res: Response) => {
     res.json({ status: 'ready', mode: 'local-first-mvp' });
@@ -103,32 +108,7 @@ export function createStudioRouter(db: SqliteDatabase, blobStorePath: string): R
     res.json({ profiles: STUDIO_PROFILES });
   });
 
-  router.get('/settings', (_req: Request, res: Response) => {
-    res.json({
-      configured: Boolean(settings.apiKey),
-      provider: settings.provider,
-      model: settings.model,
-      source: settings.source
-    });
-  });
 
-  router.post('/settings', (req: Request, res: Response) => {
-    const provider = parseProvider(req.body?.provider);
-    const apiKey = typeof req.body?.apiKey === 'string' ? req.body.apiKey.trim() : '';
-
-    if (!provider) {
-      res.status(400).json({ error: 'Provider non supportato.' });
-      return;
-    }
-    const model = sanitiseModel(req.body?.model, provider);
-    if (apiKey.length < 8) {
-      res.status(400).json({ error: 'Inserisci una chiave API valida.' });
-      return;
-    }
-
-    settings = { provider, apiKey, model, source: 'session' };
-    res.json({ configured: true, provider, model, source: 'session' });
-  });
 
   router.get('/projects', (_req: Request, res: Response) => {
     const rows = db.prepare(`
@@ -218,9 +198,16 @@ export function createStudioRouter(db: SqliteDatabase, blobStorePath: string): R
 
       const extraction = await extractText(file.buffer, extension);
       const sourceId = randomUUID();
-      const sourceText = extraction.text.slice(0, MAX_STORED_TEXT);
+      let totalTextLength = 0;
+      const validUnits = extraction.units.filter(u => {
+        if (totalTextLength >= MAX_STORED_TEXT) return false;
+        totalTextLength += u.originalText.length;
+        return true;
+      });
+      
+      const sourceText = validUnits.map(u => u.originalText).join('\n\n');
       const anomalies = [...extraction.anomalies];
-      if (extraction.text.length > MAX_STORED_TEXT) {
+      if (extraction.units.length > validUnits.length) {
         anomalies.push(`Testo limitato ai primi ${MAX_STORED_TEXT.toLocaleString('it-IT')} caratteri.`);
       }
       if (!sourceText.trim()) {
@@ -243,17 +230,15 @@ export function createStudioRouter(db: SqliteDatabase, blobStorePath: string): R
           INSERT INTO source_pages (id, source_id, unit_index, original_text, normalized_text, quality, needs_review)
           VALUES (?, ?, ?, ?, ?, ?, ?)
         `);
-        const pages = splitIntoUnits(sourceText);
-        pages.forEach((page, index) => {
-          const hasText = page.trim().length >= 80;
+        validUnits.forEach((unit, index) => {
           insertPage.run(
             randomUUID(),
             sourceId,
-            `unit_${index + 1}`,
-            page,
-            normaliseWhitespace(page),
-            hasText ? 'good' : 'ocr_needed',
-            hasText ? 0 : 1
+            unit.id || `unit_${index + 1}`,
+            unit.originalText,
+            unit.normalizedText || normaliseWhitespace(unit.originalText),
+            unit.quality || (unit.originalText.trim().length >= 80 ? 'good' : 'ocr_needed'),
+            unit.needsReview ? 1 : (unit.originalText.trim().length >= 80 ? 0 : 1)
           );
         });
       });
@@ -286,12 +271,58 @@ export function createStudioRouter(db: SqliteDatabase, blobStorePath: string): R
     `).all(projectId) as OutputRow[];
     res.json({ outputs: rows.map(mapOutput) });
   });
+  router.post('/projects/:projectId/batch-generate', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const projectId = routeParam(req.params.projectId);
+      const project = getProject(db, projectId);
+      
+      if (!project) throw new StudioHttpError(404, 'Progetto non trovato.');
+
+      const settings = await getSettings(db);
+      const useAi = req.body?.useAi === true;
+      if (useAi && (!settings.geminiKey || !settings.deepseekKey)) {
+        throw new StudioHttpError(422, 'Configura prima le chiavi API (Gemini + DeepSeek) nelle Impostazioni oppure usa la modalita demo locale.');
+      }
+      
+      // Get all sources for this project
+      const sources = db.prepare(`SELECT id FROM sources WHERE project_id = ?`).all(projectId) as { id: string }[];
+      if (sources.length === 0) {
+        throw new StudioHttpError(400, 'Nessuna fonte trovata nel progetto.');
+      }
+      
+      const jobId = randomUUID();
+      const now = new Date().toISOString();
+      
+      const insertJob = db.transaction(() => {
+        db.prepare(`
+          INSERT INTO batch_jobs (id, project_id, status, created_at, updated_at)
+          VALUES (?, ?, 'PENDING', ?, ?)
+        `).run(jobId, projectId, now, now);
+        
+        const insertItem = db.prepare(`
+          INSERT INTO batch_job_items (id, batch_job_id, source_id, status, created_at, updated_at)
+          VALUES (?, ?, ?, 'PENDING', ?, ?)
+        `);
+        
+        for (const source of sources) {
+          insertItem.run(randomUUID(), jobId, source.id, now, now);
+        }
+      });
+      
+      insertJob();
+      
+      res.status(201).json({ jobId, message: 'Elaborazione in batch avviata con successo.' });
+    } catch (error) {
+      next(error);
+    }
+  });
 
   router.post('/generate', async (req: Request, res: Response, next: NextFunction) => {
     try {
       const projectId = typeof req.body?.projectId === 'string' ? req.body.projectId : '';
       const sourceId = typeof req.body?.sourceId === 'string' ? req.body.sourceId : '';
       const useAi = req.body?.useAi === true;
+      const forceVisual = req.body?.forceVisual === true;
       const project = getProject(db, projectId);
       const source = getSource(db, sourceId);
 
@@ -305,8 +336,15 @@ export function createStudioRouter(db: SqliteDatabase, blobStorePath: string): R
       if (!profile) throw new StudioHttpError(400, 'Profilo disciplinare non valido.');
 
       const sourceText = getSourceText(db, sourceId);
-      if (sourceText.trim().length < 80) {
-        throw new StudioHttpError(422, 'Il file non contiene testo sufficiente. Usa un PDF con testo selezionabile oppure esegui prima un OCR.');
+      
+      if (sourceText.trim().length < 80 && !forceVisual) {
+        throw new StudioHttpError(422, 'Il testo locale è insufficiente. Puoi analizzare il PDF con Gemini.');
+      }
+      
+      const settings = await getSettings(db);
+      if (forceVisual && (!useAi || settings.provider !== 'deepseek' || !settings.geminiKey)) {
+        res.status(400).json({ error: 'La visione richiede la modalità AI (Gemini + DeepSeek) con chiavi configurate.' });
+        return;
       }
 
       const input = {
@@ -316,21 +354,52 @@ export function createStudioRouter(db: SqliteDatabase, blobStorePath: string): R
         profile,
         mode: 'RIASSUNTO'
       };
+      
       let content: string;
       let provider = 'demo';
       let model = 'local-extractive-v1';
 
       if (useAi) {
-        if (!settings.apiKey) {
-          throw new StudioHttpError(422, 'Configura prima una chiave API nelle Impostazioni oppure usa la modalita demo locale.');
+        if (!settings.geminiKey || !settings.deepseekKey) {
+          throw new StudioHttpError(422, 'Configura le API Key nelle impostazioni (Gemini + DeepSeek).');
         }
         try {
-          content = await generateWithProvider(
-            settings.provider,
-            settings.apiKey,
-            settings.model,
-            buildStudyPrompt(input)
-          );
+          if (forceVisual) {
+            const pdfPath = blobStore.getPath(source.file_hash);
+            if (!pdfPath) throw new Error('PDF originale non trovato nello storage locale.');
+            
+            console.time('generate-visual-study-summary');
+            
+            // 1. Extract structural JSON using Gemini Vision
+            const extractedJson = await extractEvidenceWithGemini(
+              settings.geminiKey,
+              "gemini-2.5-pro",
+              pdfPath,
+              input.sourceName
+            );
+            
+            // 2. Synthesize using DeepSeek
+            content = await synthesizeWithDeepSeek(
+              settings.deepseekKey,
+              "deepseek-chat",
+              {
+                title: input.title,
+                sourceName: input.sourceName,
+                profile: input.profile,
+                mode: input.mode
+              },
+              extractedJson
+            );
+            
+            console.timeEnd('generate-visual-study-summary');
+          } else {
+            content = await generateStudySummary(
+              settings.provider,
+              settings.geminiKey,
+              settings.model,
+              input
+            );
+          }
         } catch (error) {
           const detail = error instanceof Error ? error.message : 'Errore sconosciuto.';
           throw new StudioHttpError(502, `Il provider AI non ha completato la generazione. ${detail}`);
@@ -425,22 +494,77 @@ export function createStudioRouter(db: SqliteDatabase, blobStorePath: string): R
     res.send(visual.svg);
   });
 
-  router.get('/outputs/:outputId/download/pdf', (req: Request, res: Response) => {
+  router.get('/outputs/:outputId/download/pdf', async (req: Request, res: Response) => {
     const output = getOutput(db, routeParam(req.params.outputId));
     if (!output) {
       res.status(404).json({ error: 'Risultato non trovato.' });
       return;
     }
-    const pdf = createStudyPdf({
-      title: output.title,
-      sourceName: output.source_name ?? 'Fonte',
-      content: output.content_md,
-      visuals: getOutputVisuals(db, output.id).map(mapVisual)
-    });
-    const fileName = `${safeDownloadName(output.title || 'studygenius')}-riassunto.pdf`;
-    res.type('application/pdf');
-    res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
-    res.send(pdf);
+    const project = getProject(db, output.project_id);
+    try {
+      const pdf = await createStudyPdf({
+        title: output.title,
+        chapters: [{
+          title: output.title,
+          sourceName: output.source_name ?? 'Fonte',
+          content: output.content_md,
+          visuals: getOutputVisuals(db, output.id).map(mapVisual)
+        }]
+      });
+      const fileName = `${safeDownloadName(output.title || 'studygenius')}-riassunto.pdf`;
+      res.type('application/pdf');
+      res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+      res.send(pdf);
+    } catch (error) {
+      console.error("Errore generazione PDF:", error);
+      res.status(500).json({ error: 'Errore durante la generazione del PDF.' });
+    }
+  });
+
+  router.get('/projects/:projectId/download/pdf', async (req: Request, res: Response) => {
+    const projectId = routeParam(req.params.projectId);
+    const project = getProject(db, projectId);
+    if (!project) {
+      res.status(404).json({ error: 'Progetto non trovato.' });
+      return;
+    }
+
+    try {
+      const settings = await getSettings(db);
+
+      const outputs = db.prepare(`
+        SELECT o.*, s.file_name AS source_name 
+        FROM study_outputs o 
+        LEFT JOIN sources s ON s.id = o.source_id 
+        WHERE o.project_id = ? 
+        ORDER BY o.created_at ASC
+      `).all(projectId) as (OutputRow & { source_name: string })[];
+
+      if (outputs.length === 0) {
+        res.status(404).json({ error: 'Nessun riassunto trovato nel progetto.' });
+        return;
+      }
+
+      const chapters = outputs.map(output => ({
+        title: output.title,
+        sourceName: output.source_name ?? 'Fonte',
+        content: output.content_md,
+        visuals: getOutputVisuals(db, output.id).map(mapVisual)
+      }));
+
+      const pdf = await createStudyPdf({
+        title: project.title,
+        chapters
+      });
+      
+      const fileName = `${safeDownloadName(project.title || 'studygenius')}-dispensa-completa.pdf`;
+      res.type('application/pdf');
+      res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+      res.send(pdf);
+    } catch (error) {
+      console.error("Errore generazione PDF master:", error);
+      res.status(500).json({ error: 'Errore durante la generazione della dispensa.' });
+    }
   });
 
   router.get('/outputs/:outputId/download', (req: Request, res: Response) => {
@@ -678,32 +802,22 @@ function parseJsonStringArray(value: string | null): string[] {
   }
 }
 
-async function extractText(buffer: Buffer, extension: string): Promise<{ text: string; anomalies: string[] }> {
+type ExtractionUnit = { id?: string; originalText: string; normalizedText?: string; quality?: string; needsReview?: boolean };
+
+async function extractText(buffer: Buffer, extension: string): Promise<{ units: ExtractionUnit[]; anomalies: string[] }> {
   if (extension !== '.pdf') {
-    return { text: buffer.toString('utf8'), anomalies: [] };
+    return { 
+      units: [{ originalText: buffer.toString('utf8') }], 
+      anomalies: [] 
+    };
   }
 
-  type PdfTextResult = { text?: unknown };
-  type PdfParserInstance = {
-    getText(): Promise<PdfTextResult>;
-    destroy?: () => void | Promise<void>;
+  const parser = new PdfParser();
+  const result = await parser.parse(buffer, 'application/pdf');
+  return {
+    units: result.units,
+    anomalies: result.anomalies
   };
-  type PdfParserConstructor = new (options: { data: Uint8Array }) => PdfParserInstance;
-  type PdfModule = { PDFParse?: PdfParserConstructor };
-
-  const pdfModule = await import('pdf-parse') as unknown as PdfModule;
-  if (!pdfModule.PDFParse) {
-    throw new StudioHttpError(500, 'La libreria di lettura PDF non e disponibile. Esegui npm install e riavvia il server.');
-  }
-
-  const parser = new pdfModule.PDFParse({ data: buffer });
-  try {
-    const result = await parser.getText();
-    const text = typeof result.text === 'string' ? result.text : '';
-    return { text, anomalies: text.trim() ? [] : ['Il PDF non contiene testo estraibile.'] };
-  } finally {
-    await parser.destroy?.();
-  }
 }
 
 function splitIntoUnits(text: string): string[] {

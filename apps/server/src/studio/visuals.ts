@@ -15,6 +15,7 @@ export interface StudyVisualInput {
   sourceName: string;
   sourceText: string;
   profile: StudioProfile;
+  evidenceJson?: string;
 }
 
 type RankedTerm = {
@@ -32,12 +33,39 @@ const STOP_WORDS = new Set([
 ]);
 
 /**
- * Creates visual study aids from the locally extracted text. The frequency graph
- * is intentionally a graph of terms in the source, not an invented chart of the
- * subject being studied.
+ * Creates visual study aids from the locally extracted text or Gemini structured evidence.
  */
 export function createStudyVisuals(input: StudyVisualInput): StudyVisual[] {
-  const rankedTerms = extractRankedTerms(input.sourceText, 6);
+  let rankedTerms: RankedTerm[] = [];
+  
+  if (input.evidenceJson) {
+    try {
+      const evidence = JSON.parse(input.evidenceJson);
+      const allConcepts: string[] = [];
+      for (const page of evidence.pages || []) {
+        if (Array.isArray(page.concepts)) {
+          allConcepts.push(...page.concepts);
+        }
+      }
+      
+      const counts = new Map<string, number>();
+      for (const concept of allConcepts) {
+        const cleaned = concept.toLocaleLowerCase('it').trim();
+        if (cleaned.length < 4 || STOP_WORDS.has(cleaned)) continue;
+        counts.set(cleaned, (counts.get(cleaned) ?? 0) + 1);
+      }
+      rankedTerms = [...counts.entries()]
+        .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0], 'it'))
+        .slice(0, 6)
+        .map(([term, count]) => ({ term, count }));
+    } catch (e) {
+      console.warn("Failed to parse evidence JSON for SVG", e);
+      rankedTerms = extractRankedTerms(input.sourceText, 6);
+    }
+  } else {
+    rankedTerms = extractRankedTerms(input.sourceText, 6);
+  }
+  
   const terms = rankedTerms.map(({ term }) => term);
   const hasEnoughTerms = terms.length >= 3;
   const safeTerms = hasEnoughTerms ? terms : fallbackTerms(input.profile);
