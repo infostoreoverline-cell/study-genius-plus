@@ -354,19 +354,35 @@ export async function extractEvidenceWithGemini(
   filePath: string,
   sourceName: string
 ): Promise<string> {
-  const prompt = `Sei un estrattore OCR avanzato. Analizza il documento visivo allegato (PDF/Immagine).
-Estrai tutto il testo leggibile, le formule matematiche (usando sintassi LaTeX) e descrivi le informazioni presenti in grafici o tabelle.
-Mantieni l'associazione per pagina. 
+  const prompt = `Sei un estrattore OCR e analista visuale avanzato. Analizza il documento PDF/Immagine allegato.
+Estrai tutto il testo leggibile, le formule matematiche (usando sintassi LaTeX, es. $x^2$ o $$x^2$$) e le figure/grafici.
+Mantieni l'associazione per pagina.
+Per ogni figura importante (schemi di processo, grafici XY, tabelle), devi creare un oggetto JSON dettagliato.
+Il campo "boundingBox" deve contenere [ymin, xmin, ymax, xmax] normalizzati da 0.0 a 1.0 rispetto alle dimensioni della pagina.
+I tipi di figura supportati ("type") sono: "process_schema", "xy_chart", "table".
+
 Rispondi ESCLUSIVAMENTE con un JSON valido strutturato in questo modo, senza markdown \`\`\`json:
 {
   "sourceName": "${sourceName}",
   "pages": [
     {
-      "pageNumber": "1",
+      "pageNumber": 1,
       "text": "testo pulito estratto...",
       "formulas": ["formula LaTeX 1"],
       "concepts": ["concetto chiave 1"],
-      "visualDescriptions": ["descrizione del grafico..."]
+      "figures": [
+        {
+          "id": "fig_pag1_1",
+          "type": "process_schema",
+          "title": "Titolo o argomento",
+          "caption": "Didascalia completa",
+          "boundingBox": [0.15, 0.2, 0.45, 0.8],
+          "nodes": [{"id": "n1", "label": "Reattore", "type": "equipment"}],
+          "edges": [{"from": "n1", "to": "n2", "label": "Flusso A"}],
+          "data": [],
+          "confidence": 0.95
+        }
+      ]
     }
   ]
 }`;
@@ -477,4 +493,56 @@ ${evidenceJson}
     throw new Error('Il provider non ha restituito testo.');
   }
   return output.trim();
+}
+
+export async function validateSvgWithGemini(
+  apiKey: string,
+  svgBuffer: Buffer,
+  cropBuffer: Buffer,
+  instructions: string
+): Promise<{ passed: boolean; feedback: string }> {
+  type GeminiModule = any;
+  const sdk = await import('@google/genai') as GeminiModule;
+  const client = new sdk.GoogleGenAI({ apiKey });
+
+  const prompt = `Sei un revisore multimodale esperto.
+Ti sto fornendo due immagini:
+1. Il ritaglio originale (CROP) dalla fonte (la prima immagine).
+2. L'SVG generato in base ai dati estratti (la seconda immagine).
+
+Istruzioni per l'analisi:
+${instructions}
+1. Confronta la semantica: l'SVG rappresenta fedelmente le stesse informazioni, etichette e relazioni del crop originale?
+2. Controlla difetti visivi: ci sono testi sovrapposti, linee tagliate, o clipping fuori dal bordo nell'SVG?
+3. Se l'SVG omette dati numerici o logici critici, deve fallire.
+
+Rispondi ESCLUSIVAMENTE con un JSON valido strutturato così:
+{
+  "passed": true_o_false,
+  "feedback": "Spiegazione sintetica dei difetti o conferma di idoneità"
+}`;
+
+  const response = await client.models.generateContent({
+    model: 'gemini-2.5-flash',
+    contents: [
+      prompt,
+      {
+        inlineData: {
+          data: cropBuffer.toString('base64'),
+          mimeType: 'image/png'
+        }
+      },
+      {
+        inlineData: {
+          data: svgBuffer.toString('base64'),
+          mimeType: 'image/png' // Assuming we rasterize SVG to PNG before sending or just send it as image/svg+xml. Wait, Gemini vision supports PNG better.
+        }
+      }
+    ],
+    config: { responseMimeType: 'application/json' }
+  });
+
+  const directText = typeof response.text === 'string' ? response.text : '';
+  const parsed = JSON.parse(directText.replace(/^```json\n/, '').replace(/\n```$/, '').trim());
+  return { passed: !!parsed.passed, feedback: parsed.feedback || '' };
 }

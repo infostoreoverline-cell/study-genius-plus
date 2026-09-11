@@ -1,8 +1,9 @@
 import type { Database } from 'better-sqlite3';
 import { randomUUID } from 'node:crypto';
 import { getSettings } from './settings.js';
-import { extractEvidenceWithGemini, synthesizeWithDeepSeek, STUDIO_PROFILES } from './generator.js';
+import { extractEvidenceWithGemini, synthesizeWithDeepSeek, STUDIO_PROFILES, validateSvgWithGemini } from './generator.js';
 import { createStudyVisuals } from './visuals.js';
+import { extractCropFromPdf } from './crop_extractor.js';
 import { BlobStore } from '../../../../packages/storage/src/blob_store.js';
 
 export function startBatchWorker(db: Database, blobStorePath: string) {
@@ -142,13 +143,44 @@ async function processNextBatchItem(db: Database, blobStorePath: string) {
     const outputId = randomUUID();
     const now = new Date().toISOString();
     
-    const generatedVisuals = createStudyVisuals({
+    let generatedVisuals = createStudyVisuals({
       title: project.title,
       sourceName: source.file_name,
       sourceText,
       profile,
       evidenceJson
     });
+
+    // Validazione Iterativa
+    for (let i = 0; i < generatedVisuals.length; i++) {
+      const v = generatedVisuals[i];
+      if (v.boundingBox && Array.isArray(v.boundingBox) && v.boundingBox.length === 4) {
+        try {
+          console.log(`Extracting crop for figure ${v.id} (Page ${v.pageNumber})`);
+          const cropBuffer = await extractCropFromPdf(pdfPath, v.pageNumber || 1, v.boundingBox as [number, number, number, number]);
+          
+          const instructions = `L'SVG intende rappresentare una figura di tipo "${v.kind}".`;
+          console.log(`Validating SVG for figure ${v.id}...`);
+          
+          const svgBuffer = Buffer.from(v.svg, 'utf-8');
+          const validation = await validateSvgWithGemini(settings.geminiKey, svgBuffer, cropBuffer, instructions);
+          
+          if (!validation.passed) {
+            console.warn(`SVG validation failed for ${v.id}: ${validation.feedback}`);
+            // Fallback: embed the raster crop in an SVG wrapper
+            const b64 = cropBuffer.toString('base64');
+            v.svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <image href="data:image/png;base64,${b64}" width="800" height="600" preserveAspectRatio="xMidYMid meet" />
+</svg>`;
+            v.kind = 'crop_fallback';
+          } else {
+            console.log(`SVG validation PASSED for ${v.id}`);
+          }
+        } catch (e) {
+          console.error(`Validation error for ${v.id}`, e);
+        }
+      }
+    }
 
     const saveOutput = db.transaction(() => {
       db.prepare(`

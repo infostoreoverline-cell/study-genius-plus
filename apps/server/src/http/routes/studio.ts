@@ -83,7 +83,7 @@ type VisualRow = {
   created_at: string;
 };
 
-const MAX_FILE_SIZE = 100 * 1024 * 1024;
+const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB
 const MAX_STORED_TEXT = 5_000_000;
 const ALLOWED_EXTENSIONS = new Set(['.pdf', '.txt', '.md', '.markdown']);
 const upload = multer({
@@ -585,7 +585,7 @@ export function createStudioRouter(db: SqliteDatabase, blobStorePath: string): R
       return;
     }
     if (error instanceof multer.MulterError && error.code === 'LIMIT_FILE_SIZE') {
-      res.status(413).json({ error: 'Il file supera il limite di 15 MB.' });
+      res.status(413).json({ error: 'Il file supera il limite di 100 MB.' });
       return;
     }
     const detail = error instanceof Error ? error.message : 'Errore sconosciuto.';

@@ -10,5 +10,11 @@ export default defineConfig({
     // AVVIA.bat and the API use these fixed local ports.  Failing clearly is
     // safer than silently exposing another instance on an arbitrary port.
     strictPort: true,
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:3000',
+        changeOrigin: true,
+      }
+    }
   },
 })

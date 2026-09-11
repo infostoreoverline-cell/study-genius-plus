@@ -10,7 +10,7 @@ import {
 } from 'react';
 import './App.css';
 
-const API_BASE = import.meta.env.VITE_API_URL ?? 'http://127.0.0.1:3000/api/studio';
+const API_BASE = import.meta.env.VITE_API_URL ?? '/api/studio';
 
 type View = 'studio' | 'figures' | 'archive' | 'settings';
 type Provider = 'gemini' | 'deepseek';
