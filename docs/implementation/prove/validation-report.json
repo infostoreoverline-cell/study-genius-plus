@@ -1,0 +1,108 @@
+{
+  "scope": "Validation of the implementation-plan package; not tests of the future application",
+  "date": "2026-09-11",
+  "markdownFiles": 18,
+  "words": 26360,
+  "localLinksChecked": 24,
+  "jsonExamplesSyntaxChecked": 5,
+  "sourceModulesMapped": 73,
+  "sourceManifestFilesVerified": 177,
+  "milestonesPresent": 16,
+  "budgetExampleArithmetic": "passed",
+  "reproductionRunner": "Executed against original snapshot with hash checks; all 10 expected-defect assertions passed",
+  "futureApplicationImplemented": false,
+  "paidApiCallsPerformed": false,
+  "issues": [],
+  "files": [
+    {
+      "name": "00_LEGGIMI.md",
+      "bytes": 7512,
+      "sha256": "81cb2d4805106a27df1d2c3b2b0348aadf9b2863513bab76dfffdccbb9edcf9a"
+    },
+    {
+      "name": "01_Audit_repository.md",
+      "bytes": 11867,
+      "sha256": "90d3bd981ac6c56b00a6f748a03a7ff51d5bb23896e2622a9a91078309ea7ce4"
+    },
+    {
+      "name": "02_Mappa_funzioni_e_moduli.md",
+      "bytes": 26833,
+      "sha256": "6b4e96ecb56f832f2d6833055f314de51bcde812632841797ad74cb48a9de42d"
+    },
+    {
+      "name": "03_Architettura_locale.md",
+      "bytes": 8499,
+      "sha256": "3d87aecd15ce30f40115395f2217236753949f18be769e8a2246c4daa0f8206e"
+    },
+    {
+      "name": "04_Contratti_e_database.md",
+      "bytes": 12820,
+      "sha256": "02ab21793a49e3e2c2146c98c30f4b013f9012d82adbc758be8acc3344d287a4"
+    },
+    {
+      "name": "05_API_job_e_ripresa.md",
+      "bytes": 11005,
+      "sha256": "185e8c92c84dca84e4e04bf91415ea996b64d1087515e5f5bb3196dcd5da055d"
+    },
+    {
+      "name": "06_Interfaccia_e_chiavi_API.md",
+      "bytes": 8505,
+      "sha256": "038d59b7ab0b79e57ccab2effc5d43fccdb00ffda1bb1fd99e104db8199f1de8"
+    },
+    {
+      "name": "07_Ingestione_e_fonti.md",
+      "bytes": 9091,
+      "sha256": "8c2e8b51e8b76f676d28808e2384384c05db87f3e8f81feed14253da0aa3887c"
+    },
+    {
+      "name": "08_Provider_Google_DeepSeek.md",
+      "bytes": 10581,
+      "sha256": "c26f9c6a3fbabca4d3b0e7c27fd783438b7fd9e2bd9aab60e12c1a8429d22870"
+    },
+    {
+      "name": "09_Budget_e_costi.md",
+      "bytes": 10527,
+      "sha256": "3e5f18f02ad0c4a873897a8e3a7aa0d2ca72985dfb8d267ee5c31dfef615278a"
+    },
+    {
+      "name": "10_Metodo_didattico_e_generazione.md",
+      "bytes": 10567,
+      "sha256": "38b62bccd9396468ad25dab3ff5e08478eab8ff2934ec362bc7a9bbc4570d354"
+    },
+    {
+      "name": "11_SVG_specifiche_e_rendering.md",
+      "bytes": 10090,
+      "sha256": "5da521e80f8161f291b881bb4a324e5645a36bc60b0b24873027aac33a255cba"
+    },
+    {
+      "name": "12_SVG_verifica_iterativa.md",
+      "bytes": 9110,
+      "sha256": "e1f4db43eb1aa52c23b303fd4ab5942ae3a288e4d9e9b90bd0d6a5dc1e213dd1"
+    },
+    {
+      "name": "13_Documenti_ed_esportazione.md",
+      "bytes": 8069,
+      "sha256": "39fa08c077dcdd4ac4a03da3f12e119f290fd466363393bcc689bc1e6ef4b469"
+    },
+    {
+      "name": "14_Sicurezza_backup_e_installazione.md",
+      "bytes": 9816,
+      "sha256": "8644b0f44a1581c546768d684be5138e10f607678ba6a5788c6c4fddf0db7aa2"
+    },
+    {
+      "name": "15_Test_errori_e_accettazione.md",
+      "bytes": 13414,
+      "sha256": "1865ff1d67385951907b0eb195c1bc4976c81948540d51ce8b8dd01b070a5a75"
+    },
+    {
+      "name": "16_Roadmap_Antigravity.md",
+      "bytes": 13833,
+      "sha256": "eec574936a128e66357b3220d2f161258a4a73dda3bd8e40a88bd26e8f1b90f7"
+    },
+    {
+      "name": "17_Fonti_e_verifiche.md",
+      "bytes": 10422,
+      "sha256": "44c5519edb476f870faaef8cf70a71139ad57c2fbfa61c166575c229de74b423"
+    }
+  ]
+}

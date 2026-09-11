@@ -1,0 +1,16 @@
+{
+  "name": "budget",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "tsx --test tests/**/*.test.ts"
+  },
+  "dependencies": {
+    "crypto": "*"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4"
+  }
+}

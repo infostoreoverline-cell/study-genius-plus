@@ -1,0 +1,19 @@
+{
+  "name": "providers",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@google/genai": "^2.22.0",
+    "contracts": "*",
+    "budget": "*",
+    "storage": "*"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4"
+  }
+}

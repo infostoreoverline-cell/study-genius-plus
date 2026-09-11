@@ -1,0 +1,19 @@
+{
+  "name": "@study-genius-plus/maintenance",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@study-genius-plus/contracts": "workspace:*",
+    "@study-genius-plus/storage": "workspace:*",
+    "@study-genius-plus/budget": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
+  }
+}

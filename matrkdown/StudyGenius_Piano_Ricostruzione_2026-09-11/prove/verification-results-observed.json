@@ -1,0 +1,633 @@
+{
+  "syntax": [
+    {
+      "path": "public/app.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "public/conceptMapRendererClient.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "scripts/diff_regression.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "scripts/generate_cattura_svg_pdf.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "scripts/generate_chemistry_sample_pdf.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "scripts/generate_chimica_fisica_pdf.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "scripts/generate_industrial_chemistry_dispensa.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "scripts/generate_master_example_pdf.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "scripts/generate_sample_pdf.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "scripts/get_img_size.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "scripts/inspect_course_pdf.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "scripts/optimize_diagrams_visual_loop.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "scripts/process_cattura_pfd.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "scripts/render_cavitazione_preview.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "scripts/render_concept_map_preview.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "scripts/render_figure_preview.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "scripts/render_physics_preview.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "scripts/restore_corrupted_session.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "scripts/run_full_course_test.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "scripts/scratch/debug_markdown_spacing.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "scripts/scratch/test_cavitazione_pdf.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "server.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/config/index.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/config/subjects.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/core/contract.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/core/coverageMatrix.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/core/graphValidator.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/core/jobState.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/core/knowledgeGraph.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/core/promptCompiler.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/core/qualityEngine.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/core/schemas.js",
+      "code": 1,
+      "error": "<REPO>/StudyGenius/src/core/schemas.js:303\n  REACTION_MECHANISM: 'reaction_mechanism',               // Schema a frecce curvilinee con pushing elettronico\n                    ^\n\nSyntaxError: Unexpected token ':'\n    at wrapSafe (node:internal/modules/cjs/loader:1804:18)\n    at checkSyntax (node:internal/main/check_syntax:76:3)\n\nNode.js v24.19.0\n"
+    },
+    {
+      "path": "src/core/textSanitizer.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/core/visualCoverage.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/core/visualLedger.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/core/visualObserver.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/core/visualReadingContract.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/epistemology/chemistry.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/epistemology/computerScience.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/epistemology/humanities.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/epistemology/index.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/epistemology/math.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/epistemology/physics.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/generation/blockManager.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/generation/repairLoop.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/generation/seamWelding2.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/generation/shardRoles.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/multimodal/localAnalyzer.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/multimodal/multimodalRouter.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/multimodal/semanticFusionEngine.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/multimodal/visualCacheService.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/multimodal/visualEvidenceService.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/planning/batchPlanner.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/planning/blueprint.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/planning/pedagogicalCompiler.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/planning/preflightPlanner.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/prompts/visualCriticPrompts.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/rendering/chapterArtifactManager.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/rendering/chemistryRenderer.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/rendering/conceptMapRenderer.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/rendering/diagramEngine.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/rendering/globalAssembler.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/rendering/pdfQA.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/rendering/semanticReferenceResolver.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/rendering/svgGeometryAnalyzer.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/rendering/svgPatchEngine.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/rendering/svgSanitizer.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/rendering/visualArtifactManager.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/rendering/visualFeedbackLoop.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/rendering/visualGroundTruth.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/rendering/xyPlotRenderer.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/routes/configRoutes.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/routes/exportRoutes.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/routes/extractRoutes.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/routes/generationRoutes.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/routes/index.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/routes/sessionRoutes.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/services/aiService.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/services/extractorService.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/services/googleAIStudioAccessManager.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/services/orchestratorService.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/services/pdfExportService.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/services/promptService.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/services/scopeService.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/services/sessionService.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/verification/critics.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/verification/visualQualityGates.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/visual/visualArchitect.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/visual/visualSpecCompiler.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/visualization/dataBuilder.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/visualization/graphRenderer.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/visualization/graphSpec.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/visualization/graphValidator.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "src/visualization/index.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/benchmark_api_optimization.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/benchmark_transparency_report.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/runAll.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_academic_system.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_acceptance_scenarios.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_api_optimization_suite.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_block_surgical_repair.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_concept_map_processing.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_extraction.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_fullscreen_metrics.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_gemini_subsystem.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_incremental_render_cache.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_master_method.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_multimodal_pipeline.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_operational_catalog.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_pdf_smoke.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_pedagogical_compiler.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_quality_engine_hierarchical.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_schemas_contracts.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_synthesis_scope_system.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_teaching_system_milestones.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_visual_architect.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_visual_compiler.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_visual_intelligence_system.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_visual_pipeline_integration.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_visual_reading_contract.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_visualization_engine.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_visualization_engine_v2_v4.js",
+      "code": 0,
+      "error": null
+    },
+    {
+      "path": "tests/test_vsvp_v2.js",
+      "code": 0,
+      "error": null
+    }
+  ],
+  "tests": [
+    {
+      "name": "test_schemas_contracts.js",
+      "code": 1,
+      "stdout": "",
+      "stderr": "<REPO>/StudyGenius/src/core/schemas.js:303\n  REACTION_MECHANISM: 'reaction_mechanism',               // Schema a frecce curvilinee con pushing elettronico\n                    ^\n\nSyntaxError: Unexpected token ':'\n    at wrapSafe (node:internal/modules/cjs/loader:1804:18)\n    at Module._compile (node:internal/modules/cjs/loader:1846:20)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.require (node:internal/modules/cjs/loader:1617:12)\n    at require (node:internal/modules/helpers:153:16)\n    at Object.<anonymous> (<REPO>/StudyGenius/tests/test_schemas_contracts.js:6:17)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n\nNode.js v24.19.0\n"
+    },
+    {
+      "name": "test_visual_reading_contract.js",
+      "code": 1,
+      "stdout": "",
+      "stderr": "<REPO>/StudyGenius/src/core/schemas.js:303\n  REACTION_MECHANISM: 'reaction_mechanism',               // Schema a frecce curvilinee con pushing elettronico\n                    ^\n\nSyntaxError: Unexpected token ':'\n    at wrapSafe (node:internal/modules/cjs/loader:1804:18)\n    at Module._compile (node:internal/modules/cjs/loader:1846:20)\n    at Object..js (node:internal/modules/cjs/loader:2003:10)\n    at Module.load (node:internal/modules/cjs/loader:1594:32)\n    at Module._load (node:internal/modules/cjs/loader:1396:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.require (node:internal/modules/cjs/loader:1617:12)\n    at require (node:internal/modules/helpers:153:16)\n    at Object.<anonymous> (<REPO>/StudyGenius/src/verification/visualQualityGates.js:20:5)\n    at Module._compile (node:internal/modules/cjs/loader:1872:14)\n\nNode.js v24.19.0\n"
+    }
+  ]
+}

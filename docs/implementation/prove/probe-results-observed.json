@@ -1,0 +1,91 @@
+{
+  "scope": "Isolated probes of unchanged repository modules; I/O and external providers mocked; no external API calls",
+  "node": "v24.19.0",
+  "results": [
+    {
+      "id": "P01",
+      "observation": "Four imports used by configRoutes are absent from promptService exports",
+      "missing": [
+        "getUserPreferences",
+        "saveUserPreferences",
+        "saveCustomPrompt",
+        "getDefaultGenericPrompt"
+      ]
+    },
+    {
+      "id": "P02",
+      "expression": "ln(e)",
+      "expected": 1,
+      "actual": 0
+    },
+    {
+      "id": "P03",
+      "expression": "1/x at x=0",
+      "expected": "undefined / gap",
+      "actual": 0
+    },
+    {
+      "id": "P04",
+      "observation": "Expression changed a harmless VM global marker; evaluator does not isolate expressions",
+      "actual": 7
+    },
+    {
+      "id": "P05",
+      "input": "Gauss (only a label, no explanation)",
+      "verified": true,
+      "coverage": 1
+    },
+    {
+      "id": "P06",
+      "observation": "State transition accepts a phase outside PHASES",
+      "actual": "NON_EXISTENT_PHASE"
+    },
+    {
+      "id": "P07",
+      "providerResponse": {
+        "passed": false,
+        "truthScore": 0,
+        "issues": [
+          "incorrect formula"
+        ]
+      },
+      "applicationReport": {
+        "mathCritic": {
+          "passed": true,
+          "issues": []
+        },
+        "pedagogyCritic": {
+          "passed": true,
+          "issues": []
+        },
+        "examCritic": {
+          "passed": true,
+          "issues": []
+        },
+        "redTeamStudent": {
+          "misunderstandings": []
+        }
+      }
+    },
+    {
+      "id": "P08",
+      "observation": "Same reset then get sequence used by orchestrator clears previous visual records",
+      "before": 1,
+      "after": 0
+    },
+    {
+      "id": "P09",
+      "observation": "One critical issue remains but optimizer returns passed=true via bestCandidate score",
+      "criticalIssues": 1,
+      "passed": true,
+      "score": 100
+    },
+    {
+      "id": "P10",
+      "observation": "Network failure in final visual review yields approval",
+      "approved": true,
+      "score": 90,
+      "reasoning": "Blind review saltata per errore rete: simulated network failure"
+    }
+  ]
+}

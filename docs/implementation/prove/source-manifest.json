@@ -1,0 +1,1071 @@
+{
+  "repository": "infostoreoverline-cell/study_genius",
+  "commit": "f27ee7e2bff9ea6327be9891905e23500a0f1e91",
+  "auditDate": "2026-09-11",
+  "fileCount": 177,
+  "totalBytes": 2696065,
+  "files": [
+    {
+      "path": ".agents/rules/academic_invariants.md",
+      "bytes": 4607,
+      "gitBlobSha1": "8cebc74baa729968854e019daf4b4b45dc17e9b0",
+      "sha256": "0cef138a08ebba626c2f64a8e7102d1dc644095a4dbf52ef95225352c78fc67d"
+    },
+    {
+      "path": ".agents/rules/anti_black_box.md",
+      "bytes": 4159,
+      "gitBlobSha1": "5bec743eead75f5e54605dca76dc6680583c5226",
+      "sha256": "505fb45f5e965881078016d79d12e11e62f60ccff3e39685d2aa628c53cb43f8"
+    },
+    {
+      "path": ".agents/rules/modus_operandi_fisica.md",
+      "bytes": 22460,
+      "gitBlobSha1": "34ca20f43e3a662ab5430ad9870a1a229bed8428",
+      "sha256": "cb06d9bcad44713eb8cd8ffe220a6328035c4dead623d27264026e763ac3cf8e"
+    },
+    {
+      "path": ".agents/skills/chapter_compilation/SKILL.md",
+      "bytes": 4388,
+      "gitBlobSha1": "1dddf49c19c765bb726fd4ce6695c9ad5d03282f",
+      "sha256": "1593c972bb6af145b18f2bd3b7ef8fedd3230c4738c08619c620a9217c0e628d"
+    },
+    {
+      "path": "1.md",
+      "bytes": 39048,
+      "gitBlobSha1": "ddfd91a7f82e58620db31b7f3f6ac2e0ac667961",
+      "sha256": "93957e6aca7fef1b1ba8b7c6fbf9afac456ea2d5284039a05716b0ff329f355e"
+    },
+    {
+      "path": "2.md",
+      "bytes": 35485,
+      "gitBlobSha1": "16be11329f39b77b03b9fdad1275219239f3c6c8",
+      "sha256": "450b11011d84aec27777fdd528b26bb1baf673b5935264f2f87cfb02129ed0af"
+    },
+    {
+      "path": "AVVIA_STUDYGENIUS.bat",
+      "bytes": 51,
+      "gitBlobSha1": "d168c883df545982cd70037408c382af73f7a62d",
+      "sha256": "8cda9be1a5e70e8c25569199ac8a42e0f47ff5524d1e02e2b66814c96ee2d87e"
+    },
+    {
+      "path": "CHIUDI_SERVER.bat",
+      "bytes": 61,
+      "gitBlobSha1": "bcfa98f3f1763efada36223822a64b2f03000676",
+      "sha256": "d6a3c2b18f0ee088ae8400b02833ed3bebd7035b1ec4fd8061b706ebe391f231"
+    },
+    {
+      "path": "Cattura.svg",
+      "bytes": 17879,
+      "gitBlobSha1": "8be55b805f398699d9beb6c6508c0a4fd5c906c2",
+      "sha256": "02f240263ab125bde25d9e3a199b8f215dd23466297839b8ca1d8a5efdaa5033"
+    },
+    {
+      "path": "Dispensa_Schemi_Impianto.md",
+      "bytes": 35927,
+      "gitBlobSha1": "03c1eeaa439993437b3a02aa9b76da133c72f41b",
+      "sha256": "2784d1734b54554c23f6c8ab2d61c4edf86b8396ef3c8963a080cccaf4dcdbc3"
+    },
+    {
+      "path": "StudyGenius/AVVIA.bat",
+      "bytes": 1877,
+      "gitBlobSha1": "e4579be6b44b585bc96976451285637848298ddb",
+      "sha256": "f475084e306df5e7a8096689cee62473a1fe796dbf4c7ab28fa9a50c95e3e9d6"
+    },
+    {
+      "path": "StudyGenius/CHIUDI SERVER.bat",
+      "bytes": 600,
+      "gitBlobSha1": "0026e55aca0c36e3beed3bae548a54cf4daea572",
+      "sha256": "5025bb01640f34f18c87fc3d7a7f905ee181ee0faa9dc6a4a5bd57929dc410d7"
+    },
+    {
+      "path": "StudyGenius/package-lock.json",
+      "bytes": 140713,
+      "gitBlobSha1": "b33a34119dd685ed05a7b9e0dbd3e771b8664ea4",
+      "sha256": "9fb5b94a1c91ccb9b3382397945625d6cf2723d6c96807e83b5422b30aace5c2"
+    },
+    {
+      "path": "StudyGenius/package.json",
+      "bytes": 751,
+      "gitBlobSha1": "f0e1268362d307f581b950e7871146cf3b511857",
+      "sha256": "2530248e09f08e4dce8589d09932a8ecaa26825968a95ee902b2da41d9288839"
+    },
+    {
+      "path": "StudyGenius/prompts/Chimica.md",
+      "bytes": 11309,
+      "gitBlobSha1": "cbe5583190c0926b051869f5a4f841461c59996d",
+      "sha256": "8c8cf162286bd0e6abcadbba39f4690915aa154a52a70695e13ec97f80f5ca09"
+    },
+    {
+      "path": "StudyGenius/prompts/Diritto.md",
+      "bytes": 7442,
+      "gitBlobSha1": "15ae2aee943cd5c3cdb0ec10be2d7866b579f884",
+      "sha256": "9dc460944bb9c38c13f3dacea65fce63f458173265c762d874e056bbdac8bf30"
+    },
+    {
+      "path": "StudyGenius/prompts/Economia.md",
+      "bytes": 9513,
+      "gitBlobSha1": "6391873ebe0075bb4b34495e2c8cb27c55d70f16",
+      "sha256": "f985873e95944e959edcae6560fda59680f25cedfa15cee7da3b48eb25f34900"
+    },
+    {
+      "path": "StudyGenius/prompts/Fisica.md",
+      "bytes": 24232,
+      "gitBlobSha1": "ae3e06d15ac911dda475bcf74f6fba2e529b95f1",
+      "sha256": "5ba558b52677529967a2248a43f0445e22a2434e3edd507722a0da4c4d6ff53a"
+    },
+    {
+      "path": "StudyGenius/prompts/Informatica.md",
+      "bytes": 7859,
+      "gitBlobSha1": "7059c5237635508b77303ed0018b6292d5643327",
+      "sha256": "4a3f19fabd31e58a05c521d661cfce1c51bbd26bf22d789bf1c73b509456c25b"
+    },
+    {
+      "path": "StudyGenius/prompts/Matematica.md",
+      "bytes": 9471,
+      "gitBlobSha1": "829ea00879cb286b2758b6c0245d3b3d3c5508a8",
+      "sha256": "b37a678db41db14db68a537a03a088476624073e7e3b0c63d1a335dd24cabc96"
+    },
+    {
+      "path": "StudyGenius/prompts/Storia.md",
+      "bytes": 5815,
+      "gitBlobSha1": "bdd7eab056c63948dd55ae9d447ca6bdbf34a429",
+      "sha256": "8c06026aacb204277a7ad583ce870e376678720ced45448a19bd3addbcbca73d"
+    },
+    {
+      "path": "StudyGenius/prompts/base_skill.md",
+      "bytes": 6534,
+      "gitBlobSha1": "d6dbc733f6c099315bf3e099f4a73b4225297071",
+      "sha256": "1546c709592e18f0602b0ace658203e683a18be915f459ae3174ea510dbd89a8"
+    },
+    {
+      "path": "StudyGenius/prompts/generic.md",
+      "bytes": 6424,
+      "gitBlobSha1": "6dfed518ee55db049425cc5f292021873f7cc55d",
+      "sha256": "868f5e5be54cd966c5f44295f4dbf434f5b90ee9482af39446e3ab1274019bbd"
+    },
+    {
+      "path": "StudyGenius/prompts/modus_operandi_fisica.md",
+      "bytes": 32262,
+      "gitBlobSha1": "2a2d1b8a0651cf7bc1042bce4c07ceceec166dd0",
+      "sha256": "8a3b5f14c1461ef88a76bcc61fff82ea7d081dc9dda4ce8a40c72d3635e64296"
+    },
+    {
+      "path": "StudyGenius/prompts/user_preferences.json",
+      "bytes": 883,
+      "gitBlobSha1": "e56bf3b048650e91f3bf0ae3e74c52c31f406d7b",
+      "sha256": "a73c5e9bf225e5aa131cdb672f97d7921ec833f2426a058e10dd8819000f51a9"
+    },
+    {
+      "path": "StudyGenius/public/app.js",
+      "bytes": 87522,
+      "gitBlobSha1": "bb817584c93b69ab1407b1f2bb355faa6448bb9f",
+      "sha256": "90802bde21302db7df66b05d447eab34c7e59d86d41b44c718d22597e940727c"
+    },
+    {
+      "path": "StudyGenius/public/conceptMapRendererClient.js",
+      "bytes": 18783,
+      "gitBlobSha1": "4bcb6e79af2fca77c4d1e02d20f368864e4cc452",
+      "sha256": "4c3afac07c7e8ee81a9e4695724071b0bc0b5ed64adce9e94ec282c96ac153e9"
+    },
+    {
+      "path": "StudyGenius/public/index.html",
+      "bytes": 33942,
+      "gitBlobSha1": "83ad3f1c95da62efae814357a62d82accc6b953b",
+      "sha256": "99a39d8545ad610039e9c55b5f771930e1cbb44332b871acc51f4d3f882a0de7"
+    },
+    {
+      "path": "StudyGenius/public/style.css",
+      "bytes": 49319,
+      "gitBlobSha1": "190ac424e17a20b29cf02cdb511624b1536e3d0a",
+      "sha256": "bae1e7f3c0b5549f2ea0bab083ff8e5ae0141f29d16696a402ef38b70af00cc0"
+    },
+    {
+      "path": "StudyGenius/scripts/diff_regression.js",
+      "bytes": 5616,
+      "gitBlobSha1": "cfc65ff14ef4b0a8d6eb964bbd9db5ba020ad040",
+      "sha256": "c33c06bef219b33b2e328a137d0e5efd8b51a90f5e45ff9f71422131a51464e2"
+    },
+    {
+      "path": "StudyGenius/scripts/generate_cattura_svg_pdf.js",
+      "bytes": 20412,
+      "gitBlobSha1": "fb96ba0714dd24e56f55ad0194391e47cd95e846",
+      "sha256": "01c2256fb28071f7f4d0f1f5c379fec1214bd68cc3b83c7d9ac0c7b291ff8cf6"
+    },
+    {
+      "path": "StudyGenius/scripts/generate_chemistry_sample_pdf.js",
+      "bytes": 26766,
+      "gitBlobSha1": "889f9654821056d3af8fd2446883cca7bd4f58c1",
+      "sha256": "ac48d269562b04d9ff82903dd587dc2bfd2464ca6562d8af958d371e6af07e42"
+    },
+    {
+      "path": "StudyGenius/scripts/generate_chimica_fisica_pdf.js",
+      "bytes": 5092,
+      "gitBlobSha1": "8fccc8de306db9d7bb8a4f9716a4507d243fb7db",
+      "sha256": "e3919460181f4fb04fa434225b5e4f43f9d02189f5606cdc89f099527bf9f23b"
+    },
+    {
+      "path": "StudyGenius/scripts/generate_industrial_chemistry_dispensa.js",
+      "bytes": 55445,
+      "gitBlobSha1": "16b0219b8af784b35f9cb2d3e623a571d56c1f90",
+      "sha256": "eab0fd315133b8a68e180ea825df30df0773279e3e810b4d067cfadd59ef63ca"
+    },
+    {
+      "path": "StudyGenius/scripts/generate_master_example_pdf.js",
+      "bytes": 4010,
+      "gitBlobSha1": "9f90c163cb26d2f2fab54951acbd69763d8586c4",
+      "sha256": "95f30f35d13fd3ec5f7089736736882cc5d7b3a514efe8796062c7eb168eb260"
+    },
+    {
+      "path": "StudyGenius/scripts/generate_sample_pdf.js",
+      "bytes": 21717,
+      "gitBlobSha1": "7073da898635c0edadfa78cc3f698e72ea9579f7",
+      "sha256": "4a4deb2bf42d2e385735b8768b642daa18c4707cea4dada7aeb423b74a5560cb"
+    },
+    {
+      "path": "StudyGenius/scripts/get_img_size.js",
+      "bytes": 653,
+      "gitBlobSha1": "0bfb99078f2eae77c4d3c0b14e105ceb7e7bffb0",
+      "sha256": "be307e3ad617e504a1a21c51b9887a332ea749235c2c0a6805052515519a5c3d"
+    },
+    {
+      "path": "StudyGenius/scripts/inspect_course_pdf.js",
+      "bytes": 840,
+      "gitBlobSha1": "2cd465fb1a82c17ce255ac7abaeced321f2e2a5a",
+      "sha256": "f8deffa62fd46daeb3da024a78788945cee9303a6516338ed266ca5bad42e4f6"
+    },
+    {
+      "path": "StudyGenius/scripts/optimize_diagrams_visual_loop.js",
+      "bytes": 3526,
+      "gitBlobSha1": "74c76a0b278a62197db38ff7ac921843ef683be7",
+      "sha256": "cb9c40b4a4f4bc711defc9eafc8f39a00c8f824beb9cadbc5e037e3db67fd5ff"
+    },
+    {
+      "path": "StudyGenius/scripts/process_cattura_pfd.js",
+      "bytes": 3093,
+      "gitBlobSha1": "97c36a31c2c8b6865d73887ed4ce3c229a4413a1",
+      "sha256": "a10d42e5bf82ef1ba3d63eaf573e5b4ddc5ee9ab361da24cd00a5b621ea7321c"
+    },
+    {
+      "path": "StudyGenius/scripts/render_cavitazione_preview.js",
+      "bytes": 1751,
+      "gitBlobSha1": "1bdb181930d0a38aa7b2913d3563927de5c63986",
+      "sha256": "05d2be36e9098129d0c74e49ecec9807bb65e5cc3522469ab6d677689ffe50f2"
+    },
+    {
+      "path": "StudyGenius/scripts/render_concept_map_preview.js",
+      "bytes": 3164,
+      "gitBlobSha1": "2a8823c402ea1770ce2607f015653faaf66faeed",
+      "sha256": "07912ff0b7a336537f91f49464213ac41a2ea6b7a4a701ac3e2fcc4f5319450b"
+    },
+    {
+      "path": "StudyGenius/scripts/render_figure_preview.js",
+      "bytes": 1902,
+      "gitBlobSha1": "5b7461647986e90e1b0a1387250c333cad704d6f",
+      "sha256": "7e52e4faa0b934d585f07288ca6f595ad339cdc278b08880cb5b7a48785624a5"
+    },
+    {
+      "path": "StudyGenius/scripts/render_physics_preview.js",
+      "bytes": 1890,
+      "gitBlobSha1": "4e1b4a9ffcd5dad4cebc027c362d6ab333104257",
+      "sha256": "f0bc5987f8c20944b9ff1e0c8eec814ee7006b65c88bf8d56a400f1957aaff8c"
+    },
+    {
+      "path": "StudyGenius/scripts/restore_corrupted_session.js",
+      "bytes": 1599,
+      "gitBlobSha1": "d8ad81bc3e76e9eea7e4f6766b306f8b6d734ba6",
+      "sha256": "3f5e32eb241c246736aa8d205982ed6ab57c4fcfb51f197ca9674fe8d7158759"
+    },
+    {
+      "path": "StudyGenius/scripts/run_full_course_test.js",
+      "bytes": 43689,
+      "gitBlobSha1": "c108fc8703dd96baaed4059d236cd7fcdeac1081",
+      "sha256": "fb63296c1d006d392af6132dce0effd3504e20cc9148845fee2ca1ba601defc4"
+    },
+    {
+      "path": "StudyGenius/scripts/scratch/debug_markdown_spacing.js",
+      "bytes": 1870,
+      "gitBlobSha1": "2e801855a0c1024cb5273965964d1bbd5d1f7246",
+      "sha256": "00bbf2e6963d23765195bc1e22bed7412405746282d64ba35227da0c5593f207"
+    },
+    {
+      "path": "StudyGenius/scripts/scratch/test_cavitazione_pdf.js",
+      "bytes": 915,
+      "gitBlobSha1": "4c91b0fae23a19ba4e529ab1f30f546132effedd",
+      "sha256": "9885e0a4305cab2486fe8911dc3f0a2cdc3828023386abc0c1639e94dd0b03e4"
+    },
+    {
+      "path": "StudyGenius/server.js",
+      "bytes": 2911,
+      "gitBlobSha1": "d41bc92c073d3c2904d3f67f2da9b191a0dddc75",
+      "sha256": "12600fd51cd12629fa755cd421ef96e3a67e2f5cfe066eec9e58390e22214a78"
+    },
+    {
+      "path": "StudyGenius/src/config/googleAIStudioOperationalCatalog.json",
+      "bytes": 36330,
+      "gitBlobSha1": "d35b8293e7203b38264ff5b607180a3cc3255271",
+      "sha256": "c7ee48dda48d195a3f12ff21db89a380fd1bf307f58183cda86eaead7d5c80a2"
+    },
+    {
+      "path": "StudyGenius/src/config/index.js",
+      "bytes": 3610,
+      "gitBlobSha1": "92c68108e02655170a6ce6357fe8282803ccb671",
+      "sha256": "73cb9a6ac0d0b93aa2129eb9efbffd6dcb0376b3b0e27cb9244debef0a815f18"
+    },
+    {
+      "path": "StudyGenius/src/config/subjects.js",
+      "bytes": 1586,
+      "gitBlobSha1": "1504b722ebb6f08c1e6626993a2035aec2787b6a",
+      "sha256": "ee312de2542f42185e485a075761a8056a4604f7bb8eb059b84b3837b01e10a0"
+    },
+    {
+      "path": "StudyGenius/src/core/contract.js",
+      "bytes": 11678,
+      "gitBlobSha1": "eb8fd791fecf3ccdca3a350fefe9c0ad00ea2c23",
+      "sha256": "e67a202b4deaae069a127ac3007293b2f7a27920606c718bf49862a2a05a7752"
+    },
+    {
+      "path": "StudyGenius/src/core/coverageMatrix.js",
+      "bytes": 3548,
+      "gitBlobSha1": "314c654b2c711097c3f4cc40b6799ade92a3c93d",
+      "sha256": "d14022ec2827ae15635f38bda31e1b585b9ff11c75b3e891dbd67f9f47ed5866"
+    },
+    {
+      "path": "StudyGenius/src/core/graphValidator.js",
+      "bytes": 5616,
+      "gitBlobSha1": "541aa84837c488707c809351919dc8a496c205da",
+      "sha256": "a3cf83e1ab3e59cab4b234f8dac0cf7a8bb75f43f53c0fb78bd0099febf5d5db"
+    },
+    {
+      "path": "StudyGenius/src/core/jobState.js",
+      "bytes": 5710,
+      "gitBlobSha1": "de8007a18cf5ff261d31f074b64bd84a3b61f64b",
+      "sha256": "e589a0761f9e08ffdfe5560593ca8354d2094cbd351013068d75caf3689160a0"
+    },
+    {
+      "path": "StudyGenius/src/core/knowledgeGraph.js",
+      "bytes": 24184,
+      "gitBlobSha1": "642af631e59caece86f8e1d32d13bf15116a53f7",
+      "sha256": "537cb79a6425ffc357695831dc6f82ebc8bb1401c9e6d170ec3d5fc34c68b31c"
+    },
+    {
+      "path": "StudyGenius/src/core/promptCompiler.js",
+      "bytes": 24205,
+      "gitBlobSha1": "e8d7d6c2b349d98809206cb5f40b37abf2e54ce3",
+      "sha256": "245e3a0a3335527e83817dad647bef80639c1953f8fd28eb464d35682b3d05d3"
+    },
+    {
+      "path": "StudyGenius/src/core/qualityEngine.js",
+      "bytes": 44027,
+      "gitBlobSha1": "6731394ec6f4a1bf69d4b971e5047d64e0b5d85d",
+      "sha256": "58da233fde437e4a6f852b4ebcb01a3c0d516de6d583e75c515894cfaa921873"
+    },
+    {
+      "path": "StudyGenius/src/core/schemas.js",
+      "bytes": 36045,
+      "gitBlobSha1": "8be85cd1e625aa050f492838a364b6db00561f0b",
+      "sha256": "9df3e28c55f7d75b9bfcce24a5f40b3a60e8e0aef84c9fa11ff9c8fd94b61d1d"
+    },
+    {
+      "path": "StudyGenius/src/core/textSanitizer.js",
+      "bytes": 9280,
+      "gitBlobSha1": "40dc9cd62ff9ef40710cf47ae3b617ef59c97a95",
+      "sha256": "2a1d0ae1421ddfbc5ef99a14d1554e105d1f5a27fb5cb9f1fc60838a6c7208ee"
+    },
+    {
+      "path": "StudyGenius/src/core/visualCoverage.js",
+      "bytes": 32015,
+      "gitBlobSha1": "e4683cd1a25f4aa998952298f09d8a906c41817a",
+      "sha256": "1bb072706828d591d5007ae6ee168fbb05afee97089e2c43446ff32770633170"
+    },
+    {
+      "path": "StudyGenius/src/core/visualLedger.js",
+      "bytes": 13603,
+      "gitBlobSha1": "911979d12ad4972a40c36f7dd04beefb54c6f520",
+      "sha256": "a2133e28faeb7abb45c82ce540d5d72252a4ead03cd018051cd7fdecb9aec4f9"
+    },
+    {
+      "path": "StudyGenius/src/core/visualObserver.js",
+      "bytes": 4276,
+      "gitBlobSha1": "28a560658263b2a264131e2cfaacada6f1d6ece0",
+      "sha256": "32b948cd36c3e04eca32ade5666edf66383dafa5512fc98fd5f9d760ecac01e5"
+    },
+    {
+      "path": "StudyGenius/src/core/visualReadingContract.js",
+      "bytes": 16557,
+      "gitBlobSha1": "1c78bce1f7255a77242837a5ca4aa5059aceefe7",
+      "sha256": "f0d9c1b5008825eafbd0e918b555fae03a0c712b68609bb4f98101d57fe627fe"
+    },
+    {
+      "path": "StudyGenius/src/epistemology/chemistry.js",
+      "bytes": 1847,
+      "gitBlobSha1": "0cd9fa97d780c796e7a3b8b4e894134de0a8d0fc",
+      "sha256": "198309f9ed3b0a9cd179b849e257dfcbff5fa3c59c859cbdf7741a983e99fb66"
+    },
+    {
+      "path": "StudyGenius/src/epistemology/computerScience.js",
+      "bytes": 1381,
+      "gitBlobSha1": "423eede1910eb2e05800eea767ac224a8213c5e5",
+      "sha256": "e0c07ccbea04270c6b92961c36bba2f2c59189ffc0f3cdedaa8fa19f22c8b01f"
+    },
+    {
+      "path": "StudyGenius/src/epistemology/humanities.js",
+      "bytes": 1961,
+      "gitBlobSha1": "47c4113c74ab84e247fb24e197a823ad8c20ca2d",
+      "sha256": "0017718eba81a0fe9bdf69cf054946c1ab4df299c4eaaca2bf64c36b40760aaf"
+    },
+    {
+      "path": "StudyGenius/src/epistemology/index.js",
+      "bytes": 1868,
+      "gitBlobSha1": "d14bfd207f7d0dd68bb4e5020d34e6cf41d52fd0",
+      "sha256": "21947303664152dfd89b95f8487fb061940108d2c9da62cc96771cb6cf5c83c9"
+    },
+    {
+      "path": "StudyGenius/src/epistemology/math.js",
+      "bytes": 1472,
+      "gitBlobSha1": "b35c2ba71b26538611b8e020324b689da91f7083",
+      "sha256": "a10f6032fbeaddc2a10002e1aa0e33c7a1da432ad46bfdb3fb15b876f9188747"
+    },
+    {
+      "path": "StudyGenius/src/epistemology/physics.js",
+      "bytes": 4140,
+      "gitBlobSha1": "b49b8812bbaec2e701769f3319f32afa0692e9a7",
+      "sha256": "715ab25ebeb00f607589298c64a7303bf84fa4a805f5b553d35f78cbba4c100e"
+    },
+    {
+      "path": "StudyGenius/src/generation/blockManager.js",
+      "bytes": 5576,
+      "gitBlobSha1": "e125f96e95dd49fb7dc2234e4612f70c069eda3c",
+      "sha256": "54dd6375103854b7ad8cef823cb819ab8e9a5e1694a68ae7dbe50a7efd689e6f"
+    },
+    {
+      "path": "StudyGenius/src/generation/repairLoop.js",
+      "bytes": 17927,
+      "gitBlobSha1": "f09579b7d277db699af921139b7e243877c3eebd",
+      "sha256": "24bad2194a4568b7017c3aa065207aa70d9314f9e36ebb2dcb5d0ab08962ab19"
+    },
+    {
+      "path": "StudyGenius/src/generation/seamWelding2.js",
+      "bytes": 4484,
+      "gitBlobSha1": "c91ac8d7a893690c0f6e021e5801acfb39102356",
+      "sha256": "5b56a753336f94f3ef1e3672cc8e2630629120867f36130744fa00f8d13bfa5f"
+    },
+    {
+      "path": "StudyGenius/src/generation/shardRoles.js",
+      "bytes": 5288,
+      "gitBlobSha1": "12f8bff8a5dd7f462d56299050a049d0c3517adb",
+      "sha256": "a1a086419a5b990ce28657a842252891c84f702c59bc9d7990133152113051dd"
+    },
+    {
+      "path": "StudyGenius/src/multimodal/localAnalyzer.js",
+      "bytes": 11998,
+      "gitBlobSha1": "eb62fcafe3f3f70c69bc47636b3b813c2ecde1d4",
+      "sha256": "52a0c51d5ac69b3ecb35d4b52a098509eee2faf79e516cc317b64441df8fad6d"
+    },
+    {
+      "path": "StudyGenius/src/multimodal/multimodalRouter.js",
+      "bytes": 6716,
+      "gitBlobSha1": "4134f84a1e85e87a8a625928434f7d5923c6a0ea",
+      "sha256": "b23caaa3e093d665bcb7f9b09fa76070ec7bc9e6fc590b8384e90fc4299b4533"
+    },
+    {
+      "path": "StudyGenius/src/multimodal/semanticFusionEngine.js",
+      "bytes": 10689,
+      "gitBlobSha1": "42824de1d0906b633dce8b3234894cdfb71f66f8",
+      "sha256": "4a4cd1fb7f050844a682553b7c722a384d186ebedb2a2d4112070502deffdb40"
+    },
+    {
+      "path": "StudyGenius/src/multimodal/visualCacheService.js",
+      "bytes": 3470,
+      "gitBlobSha1": "cdc2811d9fbc25764d4e7a8d5e470ea668f8c5f4",
+      "sha256": "a282d8fa41a407ebabaf001a5e7dc9a7bb0879f7132fa36382e4b09653cabbd6"
+    },
+    {
+      "path": "StudyGenius/src/multimodal/visualEvidenceService.js",
+      "bytes": 48888,
+      "gitBlobSha1": "8866ef44ab5e5d5379dde665530dc4525100b290",
+      "sha256": "7462818e2b366e3f697c17c591550b54f661a1d8e0c28dda69835caed407392e"
+    },
+    {
+      "path": "StudyGenius/src/planning/batchPlanner.js",
+      "bytes": 18994,
+      "gitBlobSha1": "526322c084a4c0d5509ad55b72eeba32755743ec",
+      "sha256": "165452a965166abb3ecd51c4f2cdcd4391e028b5f47f91d192de0f421d463806"
+    },
+    {
+      "path": "StudyGenius/src/planning/blueprint.js",
+      "bytes": 15436,
+      "gitBlobSha1": "e739447dfd2102f60d456a4457477cf28ddfbc81",
+      "sha256": "c16f90d40d727ab7482def76f44447f68e995fa193b11ba545de5bcdd9917f6e"
+    },
+    {
+      "path": "StudyGenius/src/planning/pedagogicalCompiler.js",
+      "bytes": 14140,
+      "gitBlobSha1": "249e29f32e13a2be4faf2545d2d2ade49c196633",
+      "sha256": "d5c07679dd2e57612485577c2ff686a46fc14eda6c614fb5e64fdbf7d721725a"
+    },
+    {
+      "path": "StudyGenius/src/planning/preflightPlanner.js",
+      "bytes": 5781,
+      "gitBlobSha1": "40fdfdba141acf3419f308a27ef249baa2b343e3",
+      "sha256": "1bd2d295b9e97a5e1ae856a3b1ffcf805cf99dae6015369a3484f48a0d0735b2"
+    },
+    {
+      "path": "StudyGenius/src/prompts/visualCriticPrompts.js",
+      "bytes": 6041,
+      "gitBlobSha1": "1d436fa14f61aa235ed464a50ea8539cf1c9c984",
+      "sha256": "3f151eac53447a1e146b6db950ad617849430bc554a43c94fca80934109880c9"
+    },
+    {
+      "path": "StudyGenius/src/rendering/chapterArtifactManager.js",
+      "bytes": 3491,
+      "gitBlobSha1": "6f82017b05006e8ea5240b7bcd50c577b8d676de",
+      "sha256": "d0a38eafb965b0b2f2f82ddf00f6962fb1bbe13a9d266f1c865c2ff5d6da73ff"
+    },
+    {
+      "path": "StudyGenius/src/rendering/chemistryRenderer.js",
+      "bytes": 29225,
+      "gitBlobSha1": "2aecf14f22a95dba2de3b061832ec8015d9e98e8",
+      "sha256": "25025810792b3f35a9f849b6be8f118cc456bc13cbe86d7d8f7664e4d759b8e2"
+    },
+    {
+      "path": "StudyGenius/src/rendering/conceptMapRenderer.js",
+      "bytes": 26776,
+      "gitBlobSha1": "59b47051a89349124cb0959b64e01beb9fb4fdf6",
+      "sha256": "8241e06d66b08cd8469ea64e159bdd2df50431e35136531ede2fec6d12d6c170"
+    },
+    {
+      "path": "StudyGenius/src/rendering/diagramEngine.js",
+      "bytes": 37041,
+      "gitBlobSha1": "f776c0a630691bdca5e90a29567e0a66231f9d43",
+      "sha256": "1693fbba4f8b1322a0b162e026819aa18bc9c7c32086d89a3e1af5846f3cc031"
+    },
+    {
+      "path": "StudyGenius/src/rendering/globalAssembler.js",
+      "bytes": 4102,
+      "gitBlobSha1": "7423b8a1c99e93d7b056bd2ad9f0bbc5fcfebbc4",
+      "sha256": "8946da30dd9cd0ef5a49792fa733d161b2d48bd604f15b28784efedbf16d0654"
+    },
+    {
+      "path": "StudyGenius/src/rendering/pdfQA.js",
+      "bytes": 10886,
+      "gitBlobSha1": "da33296495b6012c15e6e856de4b43a0792e1b4e",
+      "sha256": "91f09c3b74ed77e910cf003ba21b28c76171c1d57bf96f37506368a1d8464c72"
+    },
+    {
+      "path": "StudyGenius/src/rendering/semanticReferenceResolver.js",
+      "bytes": 3935,
+      "gitBlobSha1": "1c66286f6c81aad6d9e8fa192e5db1907595f4a7",
+      "sha256": "735d1b223f890582ad84f7db3746d3b23aa0990d11cb18b90fcb60e66df060ec"
+    },
+    {
+      "path": "StudyGenius/src/rendering/svgGeometryAnalyzer.js",
+      "bytes": 12957,
+      "gitBlobSha1": "555285f601897bc4186717241d324b0d22c27276",
+      "sha256": "50155f11cd98280dfa6beee5bebad81555a7b984bed221c87e63f4eb170b6d33"
+    },
+    {
+      "path": "StudyGenius/src/rendering/svgPatchEngine.js",
+      "bytes": 15228,
+      "gitBlobSha1": "d21703b9af52a4d7ff9ea43a148351bfa5993ba5",
+      "sha256": "3256c4fd6d4b539650efcc2a12c9505286142fdca1b86ae31ef16776c2b9f290"
+    },
+    {
+      "path": "StudyGenius/src/rendering/svgSanitizer.js",
+      "bytes": 12884,
+      "gitBlobSha1": "c96a29389fa20f9f1a3dee9c986d9df17e5bf45a",
+      "sha256": "816f1de757c2f86e46355d965c64d25e928ca98dc976833e52d31868f1117cfe"
+    },
+    {
+      "path": "StudyGenius/src/rendering/visualArtifactManager.js",
+      "bytes": 8467,
+      "gitBlobSha1": "f7131e93fea0b06a4039340b2e736619612b1892",
+      "sha256": "1482fdeb98d80e049c0df6b16e035ab9acf6eeb653d7fd8785b9be45ab353a25"
+    },
+    {
+      "path": "StudyGenius/src/rendering/visualFeedbackLoop.js",
+      "bytes": 20935,
+      "gitBlobSha1": "4bb913aa70b5fc8f4ecad42b5406d60fafdc2956",
+      "sha256": "4cb7fb0cc08899bb754e76aa2e2f286a6fd557add0e669981f99a0dcb8cfdadb"
+    },
+    {
+      "path": "StudyGenius/src/rendering/visualGroundTruth.js",
+      "bytes": 15559,
+      "gitBlobSha1": "412b2d26ec42cef80aa19adfc6ff6dddefeb09b5",
+      "sha256": "3af3a6af65b880dc34c43648774410e7bd744596dfbbf78c3de0594c4d213dea"
+    },
+    {
+      "path": "StudyGenius/src/rendering/xyPlotRenderer.js",
+      "bytes": 14836,
+      "gitBlobSha1": "f29f9a8168401cc7b90c411e2275f8c18d68cc85",
+      "sha256": "6955fef19195d100f85f1a68c1e87882250724efabdebfde30189f629b82f32b"
+    },
+    {
+      "path": "StudyGenius/src/routes/configRoutes.js",
+      "bytes": 5745,
+      "gitBlobSha1": "3497a4ddaba92db861c7a15bd22c1e26625b7634",
+      "sha256": "3c744485e1b799177c854d498e1735c0da8d44c9d3381748ae48b08262fe67a1"
+    },
+    {
+      "path": "StudyGenius/src/routes/exportRoutes.js",
+      "bytes": 1520,
+      "gitBlobSha1": "2b7f2770a224c9b15911cf9ac9913331bb6b79e0",
+      "sha256": "b69c293593ac9b28c0da597a74e6a0a76125ce379e08473bd2b736258ecbe614"
+    },
+    {
+      "path": "StudyGenius/src/routes/extractRoutes.js",
+      "bytes": 16845,
+      "gitBlobSha1": "fd79d0f78c90062db5df643da5daba8d56d52279",
+      "sha256": "f31f17e86c38ae2b8ecee901e21c1393b73af146f7dd5a8407e3c330785c638a"
+    },
+    {
+      "path": "StudyGenius/src/routes/generationRoutes.js",
+      "bytes": 2778,
+      "gitBlobSha1": "4ce01059715726fd542550be221b7869e550b2e3",
+      "sha256": "53003ba4a59cf731c3bf1ffd4c0666578e42875eb298430e8faea39ddf4f52e1"
+    },
+    {
+      "path": "StudyGenius/src/routes/index.js",
+      "bytes": 540,
+      "gitBlobSha1": "a7fb9f71edbd5682a18fde26622171bab0e0eb0a",
+      "sha256": "042b32209c1a40a7212ce81597d5793fba1cba384a261a1d27a849971a04f2f8"
+    },
+    {
+      "path": "StudyGenius/src/routes/sessionRoutes.js",
+      "bytes": 1765,
+      "gitBlobSha1": "f9da700e8ac1abd2191c6d5042b555f0ccceba2e",
+      "sha256": "32694f5cd5b8a93700bb143457a217e1883451cde47a5517b8cb612879fe8cc3"
+    },
+    {
+      "path": "StudyGenius/src/services/aiService.js",
+      "bytes": 39159,
+      "gitBlobSha1": "984f9711fe9a58a49e2117d9a82687d2d99c68b4",
+      "sha256": "ffca7c9aa94ff08c2ff2e52fcdbd7de11551897655b768c6b9ac89fc7010fc8c"
+    },
+    {
+      "path": "StudyGenius/src/services/extractorService.js",
+      "bytes": 13817,
+      "gitBlobSha1": "fb46faa1a1fe2ef457f474254d336b9d0806d45a",
+      "sha256": "94f4fad33eba822d21a27cde709375f925e959312fcb4a6e116eb998d9b3fa5e"
+    },
+    {
+      "path": "StudyGenius/src/services/googleAIStudioAccessManager.js",
+      "bytes": 51072,
+      "gitBlobSha1": "300cd145a5e92fee32dd2e14f78c2822cfacf9ab",
+      "sha256": "7562594b993529eab2fe327315fa9d791c5ac1f83d80625c8058ff924563aeb5"
+    },
+    {
+      "path": "StudyGenius/src/services/orchestratorService.js",
+      "bytes": 39501,
+      "gitBlobSha1": "8da2d7b9ae65e58cdda3bc270bc606901f241d1c",
+      "sha256": "2948e543568394bb7747a4fc993dca66a92f1e6c9a1312760a5ebb8ec8579f19"
+    },
+    {
+      "path": "StudyGenius/src/services/pdfExportService.js",
+      "bytes": 41481,
+      "gitBlobSha1": "a4f8ef505c38cbfac70ee5fb4d2e5d99bc117450",
+      "sha256": "5ff470808927baf41ce471d3377a5782a5c4875bf4e270ef03130ca31d55b2b6"
+    },
+    {
+      "path": "StudyGenius/src/services/promptService.js",
+      "bytes": 2251,
+      "gitBlobSha1": "2b2933bb63cc958e03c7ae05777501d217348b48",
+      "sha256": "f072168dd578d1df029eb90d948f962d038eed1dabf4cb977585f7c363296e43"
+    },
+    {
+      "path": "StudyGenius/src/services/scopeService.js",
+      "bytes": 5226,
+      "gitBlobSha1": "a85afae8321e4a151cbc496531c8d5b909cafa3b",
+      "sha256": "a1d2596307800b6664ebaad73735ebdeae6e1d578254c6bb71d48d262e619798"
+    },
+    {
+      "path": "StudyGenius/src/services/sessionService.js",
+      "bytes": 4112,
+      "gitBlobSha1": "db5dfcbb81787f921eae189f2123fc7b9d2df47c",
+      "sha256": "a91b6e86edd52cfbb48f1a228b047234aa79b74e24f40e5d5cd241a6d689bae6"
+    },
+    {
+      "path": "StudyGenius/src/verification/critics.js",
+      "bytes": 3523,
+      "gitBlobSha1": "cd61bcfff52dfd40a14b91bfce1940578bb74f1f",
+      "sha256": "66965ed0da251dbb5e3c3d42725bbf01cfba5c687395839644cb0f587c2d8051"
+    },
+    {
+      "path": "StudyGenius/src/verification/visualQualityGates.js",
+      "bytes": 16766,
+      "gitBlobSha1": "ff4795ae2d81127155bf8386b7b7aed09cd89b31",
+      "sha256": "6f4a2345afb81ba754b37f736ad643b2e8c78f13f3e9555257f9c6ac6339962f"
+    },
+    {
+      "path": "StudyGenius/src/visual/visualArchitect.js",
+      "bytes": 14319,
+      "gitBlobSha1": "3f9cb659172d6e476f85823de7ad5b7d7359b3c6",
+      "sha256": "25f84c7382911f83b5ef367a9b6e6c55fe0a737ead6f2ca91c7f1d02cc32ac42"
+    },
+    {
+      "path": "StudyGenius/src/visual/visualSpecCompiler.js",
+      "bytes": 13453,
+      "gitBlobSha1": "92bbd53881e41df7572494d2775097abf1441b6c",
+      "sha256": "45e0bc779c0c1d9a610e7fb93f3e19a78d6a48a9ae38561fecb8da8e25fca6d6"
+    },
+    {
+      "path": "StudyGenius/src/visualization/dataBuilder.js",
+      "bytes": 5598,
+      "gitBlobSha1": "76bd6cbf9daa761435851bce94bcda2fd8e259db",
+      "sha256": "8e4ac2c8288c9bbd281726f18e9075b6566bf9c699c9acc69dc5e8fde4310547"
+    },
+    {
+      "path": "StudyGenius/src/visualization/graphRenderer.js",
+      "bytes": 15613,
+      "gitBlobSha1": "ea7c3538b2dbee72eb018ac762451945217cfb76",
+      "sha256": "101811f649c167a10903a70f8297b0b0c7e96baeb67b141185a08ad53416acd8"
+    },
+    {
+      "path": "StudyGenius/src/visualization/graphSpec.js",
+      "bytes": 6162,
+      "gitBlobSha1": "a7c3572a0ab1cc7640513e0d31ae65e36ff6752a",
+      "sha256": "0eada6fceb4f42b19390cfbf13b79ecd00ce7b3ce35e0208760a4c5478393e2d"
+    },
+    {
+      "path": "StudyGenius/src/visualization/graphValidator.js",
+      "bytes": 10057,
+      "gitBlobSha1": "cc8e448b3fbd3f814ec8c2cb5abbab232a806110",
+      "sha256": "35ce0cf7796426a90bfcbd837b3fa0b585026b096e3bd4cf5bcc02d0eae1e868"
+    },
+    {
+      "path": "StudyGenius/src/visualization/index.js",
+      "bytes": 937,
+      "gitBlobSha1": "94b634501ce3b7c639850471ab52e45e7cbecd22",
+      "sha256": "a909db010d96c0d52f2a224a5e2d3113bbeb4cd7b387e4f7ae71285e24800523"
+    },
+    {
+      "path": "StudyGenius/tests/benchmark_api_optimization.js",
+      "bytes": 10443,
+      "gitBlobSha1": "99bac5d19e98b220385ba80c77c7aacb104064ad",
+      "sha256": "3f091c319a8fa14c1405cbe1b29af07ecc0756225e0c33dc216f0cb0aed19dca"
+    },
+    {
+      "path": "StudyGenius/tests/benchmark_transparency_report.js",
+      "bytes": 10081,
+      "gitBlobSha1": "f54c865d5bac30b978e2c934154ef827c14650e3",
+      "sha256": "eceabb33468d4082d799603e8aa363cced740b8beb5f073ae12cbe09f28296c6"
+    },
+    {
+      "path": "StudyGenius/tests/runAll.js",
+      "bytes": 5108,
+      "gitBlobSha1": "b04db481c5f0983dad4edd0e842bb305e6f56df6",
+      "sha256": "08dabbdacd9da5df933e806d96aa30999188e82dbee3ae87fb48d7f6e3028165"
+    },
+    {
+      "path": "StudyGenius/tests/test_academic_system.js",
+      "bytes": 24809,
+      "gitBlobSha1": "19673abf7854b4976bc114510e9555cb5039e083",
+      "sha256": "599cec36e49af2733edbcd14648e0f6b357fcee9accae85860d924a89a4d51a5"
+    },
+    {
+      "path": "StudyGenius/tests/test_acceptance_scenarios.js",
+      "bytes": 8428,
+      "gitBlobSha1": "7c240049bbb6f0f23e43b2299d4d930207b1c50f",
+      "sha256": "d6f02663a559034b589db37df7bfb04b1d8a431984d2c400f20b371bcd424dc6"
+    },
+    {
+      "path": "StudyGenius/tests/test_api_optimization_suite.js",
+      "bytes": 23874,
+      "gitBlobSha1": "149fc7e876a6925bd49f24497fbce6b91c5ac5f7",
+      "sha256": "2074fdedef93e0ef0c237c1d7437d1328831701b1e6e83b1d864ece03573e8bc"
+    },
+    {
+      "path": "StudyGenius/tests/test_block_surgical_repair.js",
+      "bytes": 3778,
+      "gitBlobSha1": "a9892cc1190033fdcad88e2faa4f2fe812369b4d",
+      "sha256": "d3818f98a253c4f7ef82ef7b2ca45b29e915cdcbf3bb7532f1c42270bac980bd"
+    },
+    {
+      "path": "StudyGenius/tests/test_concept_map_processing.js",
+      "bytes": 1353,
+      "gitBlobSha1": "94471e76320481ed0d627b58c3ad77e0f004c790",
+      "sha256": "9dd1f767546dc45e5a557dde8740990bb440e8efea11c301d7958ad14e531da3"
+    },
+    {
+      "path": "StudyGenius/tests/test_extraction.js",
+      "bytes": 2445,
+      "gitBlobSha1": "39f3da24e6b935e3e84c4f043246b354eba10355",
+      "sha256": "af769682002f0ff73b486583d3aae1415f1fc634f2b84aee1c8b0ab6a02aea36"
+    },
+    {
+      "path": "StudyGenius/tests/test_fullscreen_metrics.js",
+      "bytes": 6263,
+      "gitBlobSha1": "f35c155431820dfb61240bc9183deb258dccd8ae",
+      "sha256": "b861cdbd8ef6e7cad038a9bc047fd5cbeb351581831a6b9decc20fdde8707c4a"
+    },
+    {
+      "path": "StudyGenius/tests/test_gemini_subsystem.js",
+      "bytes": 31585,
+      "gitBlobSha1": "d9f3b90e039a169b883d24d655866f05892884b6",
+      "sha256": "eece45a1262fd9c707f9c4b8a338accc64cda15a02fe9474051312633a044efc"
+    },
+    {
+      "path": "StudyGenius/tests/test_incremental_render_cache.js",
+      "bytes": 5092,
+      "gitBlobSha1": "faa0c69610825ab9b0b88e4fab7619fac3b23560",
+      "sha256": "79c69e953e21f89ad77560721f2de8a74b6fd5500765d1aac9de4fcc7e2e964f"
+    },
+    {
+      "path": "StudyGenius/tests/test_master_method.js",
+      "bytes": 6785,
+      "gitBlobSha1": "02bd41aa642f245096e7c15a105afba34093c9bc",
+      "sha256": "ef81dd0e3e1a37cbb80131d6a721b369d85b731b678410c423bcc80e97014f70"
+    },
+    {
+      "path": "StudyGenius/tests/test_multimodal_pipeline.js",
+      "bytes": 9241,
+      "gitBlobSha1": "bea52b5823055447d3630e70137b94a9a4edbdec",
+      "sha256": "3a46b68d88b4e425cea260bcbabc4732115118bd1e5162ee6848f1ade6ba6182"
+    },
+    {
+      "path": "StudyGenius/tests/test_operational_catalog.js",
+      "bytes": 13219,
+      "gitBlobSha1": "70eeca3728a7f6245022bc1ab18f178f501e76cc",
+      "sha256": "b9ac1fdacdff1ba2a65db24e043edf209ae45ec896c14d8fda9a5030e3e44298"
+    },
+    {
+      "path": "StudyGenius/tests/test_pdf_smoke.js",
+      "bytes": 2074,
+      "gitBlobSha1": "99951f874c9a80aea15933da028b501b5ec757b1",
+      "sha256": "ba007a85c53826d2d4a4e79609c1c7fc741e9aca0ba04abf7639d4987626fa0d"
+    },
+    {
+      "path": "StudyGenius/tests/test_pedagogical_compiler.js",
+      "bytes": 4842,
+      "gitBlobSha1": "260612121e8e87687fc8a81b3de35e445b3500ea",
+      "sha256": "b2894aaf6a63341e3ed4f5b736a02c7d3cf2862e6765198371bb792dec4728f9"
+    },
+    {
+      "path": "StudyGenius/tests/test_quality_engine_hierarchical.js",
+      "bytes": 13284,
+      "gitBlobSha1": "54f6d38f8712168cde1041d1ca45ab2169f3f2b7",
+      "sha256": "3361e89179452e7a91c8e4b2434390e2d580bbecbc7b3b6c0a390564967a6881"
+    },
+    {
+      "path": "StudyGenius/tests/test_schemas_contracts.js",
+      "bytes": 4784,
+      "gitBlobSha1": "7ae0e00a439b2b1a2ace4ca720eb370909b58db4",
+      "sha256": "9cf9c46a733617fc1f2896a669ec3d8b0d5eec6a6e18142bd2729864fcab1071"
+    },
+    {
+      "path": "StudyGenius/tests/test_synthesis_scope_system.js",
+      "bytes": 9133,
+      "gitBlobSha1": "5d020cb909411472a4572b3d9966ee2ef36318f7",
+      "sha256": "110477445f82b1a9a501dc0aa51db7b8bf55947a9a82d5369da1e8c932ce6981"
+    },
+    {
+      "path": "StudyGenius/tests/test_teaching_system_milestones.js",
+      "bytes": 20754,
+      "gitBlobSha1": "20cccb3c0cfa7b3fb29da0826373bbacacc03f8a",
+      "sha256": "5f08a7858791480b7dbadc697975da92d4c944957474e42a39c73c51426e8c15"
+    },
+    {
+      "path": "StudyGenius/tests/test_visual_architect.js",
+      "bytes": 17405,
+      "gitBlobSha1": "669680937f4715fe32644050eaeec8c881b91cf8",
+      "sha256": "8ee56dec46dea9daf6da8a455258bd7bf6ff8d24adec1fee17cbd389bcdc30fe"
+    },
+    {
+      "path": "StudyGenius/tests/test_visual_compiler.js",
+      "bytes": 19120,
+      "gitBlobSha1": "d8bccd4a1ce30edb332e72a74e2aac3cafa9f9ef",
+      "sha256": "306493c65701a8d3f1bd821189b50af37b374618c67452e668ab7663ff9b63a4"
+    },
+    {
+      "path": "StudyGenius/tests/test_visual_intelligence_system.js",
+      "bytes": 16103,
+      "gitBlobSha1": "7421f982491ae5ec8951931b6d54b0be7ea16b62",
+      "sha256": "19a8adb34d0312ee01e1cef1f3fec7fb8ee6f19b079320c441630098993de501"
+    },
+    {
+      "path": "StudyGenius/tests/test_visual_pipeline_integration.js",
+      "bytes": 3349,
+      "gitBlobSha1": "f3c6b30a1165d059b91d6105c9fe626a924cd3f4",
+      "sha256": "513651e0bcdbd21c52dd0d4f47b995dbaf635cb908260ed30d8a908fce3d7e42"
+    },
+    {
+      "path": "StudyGenius/tests/test_visual_reading_contract.js",
+      "bytes": 16082,
+      "gitBlobSha1": "b94b3bf0544347cc601137881ec03119cf8dc9e1",
+      "sha256": "8587ba08f5c8bd44d6d083d40e8bf700235e642c901800fe1f40a03d5712b6c5"
+    },
+    {
+      "path": "StudyGenius/tests/test_visualization_engine.js",
+      "bytes": 15175,
+      "gitBlobSha1": "3d99c7ae67b3e1913a4c3c22050e77ed4dc9560e",
+      "sha256": "585214aeb601b3577c56b9e0582846e288e304ba3165165fb4bf7a01ecb6d8ab"
+    },
+    {
+      "path": "StudyGenius/tests/test_visualization_engine_v2_v4.js",
+      "bytes": 30923,
+      "gitBlobSha1": "ef22a8e86274291f3fa137be443472bbcfabf088",
+      "sha256": "73199d1e5e15b286ee7057dafc780d0f1673471c8f4d8b779dfcee01499441bd"
+    },
+    {
+      "path": "StudyGenius/tests/test_vsvp_v2.js",
+      "bytes": 6491,
+      "gitBlobSha1": "c3fd06c92f2bff57d8da7e499004e8e9f7ca5a82",
+      "sha256": "61b91b775ddbb908efcf33f0c4f95e7de2774970b0802ddfbd03fec2a4038318"
+    },
+    {
+      "path": "descrizioni funzionamento/01_FISICA.md",
+      "bytes": 4442,
+      "gitBlobSha1": "0a25c5b4f21f5c31d502eb16ae01136893f81476",
+      "sha256": "58ff3e33db12e4bf834e6ce38c3594ce88bb30eb4c33314c867684bef65dbab2"
+    },
+    {
+      "path": "descrizioni funzionamento/02_MATEMATICA.md",
+      "bytes": 3585,
+      "gitBlobSha1": "37ba75136c3e673e977881b2e763edfb94bcc288",
+      "sha256": "d0fe244166bad25138888300c8a4fc7d148485de7491b7652a27dd776ede2f28"
+    },
+    {
+      "path": "descrizioni funzionamento/03_CHIMICA.md",
+      "bytes": 4549,
+      "gitBlobSha1": "3c167949124afeef349e0165ee6de26976dfadef",
+      "sha256": "5ec28865d7593785f76bfea1bceb993eea486fdb8c886054dd13be1beddbc677"
+    },
+    {
+      "path": "descrizioni funzionamento/04_INFORMATICA.md",
+      "bytes": 3596,
+      "gitBlobSha1": "613487e605b68a54cb615fba14ed97819b109fd5",
+      "sha256": "6583d5c254b006dd1c335be4dcddeda3aee9cd7102c8a4b1ddcc3490f3711666"
+    },
+    {
+      "path": "descrizioni funzionamento/05_STORIA.md",
+      "bytes": 2765,
+      "gitBlobSha1": "cf9909ac6b48f1651f7f2be5e865d5dab14fff24",
+      "sha256": "8fd8e2ffd223b44ed6a1b8e316050c7cf40c5d24371f5059f6c009109a0eff86"
+    },
+    {
+      "path": "descrizioni funzionamento/06_SINTESI_ACCADEMICA.md",
+      "bytes": 2792,
+      "gitBlobSha1": "5cd103ac27d5337aa40aa69fa8f5f6c00acd5ef9",
+      "sha256": "fac3974ff4f291037bafa9e61cb0347677bbb606cd5f0398ba2081555b00eef9"
+    },
+    {
+      "path": "descrizioni funzionamento/07_MODALITA_COMPLETA.md",
+      "bytes": 2576,
+      "gitBlobSha1": "4c1274cf990852bd9daa667cbea699808cdbbec4",
+      "sha256": "3956d091a5910ee5b19ee15e0965c6062149d3005c30f05333abfdb3b6f346c8"
+    },
+    {
+      "path": "descrizioni funzionamento/08_MODALITA_FOCUS.md",
+      "bytes": 3470,
+      "gitBlobSha1": "6ad985b0573b7ebc180c5c28fbb251fa20b53a2b",
+      "sha256": "e8417d6f7f1d6157e0ebbc7d689dd926b8ff1c5f49070640e94c6a3ee4328c5a"
+    },
+    {
+      "path": "descrizioni funzionamento/09_FOCUS_ASSISTITO.md",
+      "bytes": 2739,
+      "gitBlobSha1": "5a7f3527ec40c2db285f94a7bf1be6164984df62",
+      "sha256": "d48c248e9a1a290a6b97171b9bcb1278a5abc1a8620ccd08d00be1ea4d5abaf8"
+    },
+    {
+      "path": "descrizioni funzionamento/10_INSERIMENTO_ARGOMENTO_SCOPE.md",
+      "bytes": 3544,
+      "gitBlobSha1": "8aa697ad481e42f4b46630063170afd0d9a8c353",
+      "sha256": "4e83681f46e37d68c2c639bf17c24e2c38c385f6fa9edba08bee3b6b936bc92c"
+    },
+    {
+      "path": "descrizioni funzionamento/11_ISTRUZIONI_AGGIUNTIVE.md",
+      "bytes": 3495,
+      "gitBlobSha1": "9fd136e01afb6b88b4051caf285eb3e6b30eb75d",
+      "sha256": "3c8a7a1040df4c11e739ee0b0dbdef07ef32cc222937fd72af52ee8d2d7f0a04"
+    },
+    {
+      "path": "descrizioni funzionamento/12_SALVATAGGIO_SESSIONI.md",
+      "bytes": 4735,
+      "gitBlobSha1": "abe60ba4395caa2021b5e01097a9bb0857c1cf2b",
+      "sha256": "84c8324dbc5227f93128b69a069acfd22ab770cd629df2c14f4853decb196256"
+    },
+    {
+      "path": "descrizioni funzionamento/README.md",
+      "bytes": 3530,
+      "gitBlobSha1": "cba49d876ddb517b912548015cc6a14d316ccb9b",
+      "sha256": "631722870a4c8d232a4e9d0e304befe48af2dbe41e9d1810486711a470cc597e"
+    },
+    {
+      "path": "descrizioni funzionamento/STUDYGENIUS_SISTEMA_INTELLIGENZA_VISUALE_MASTER.md",
+      "bytes": 16009,
+      "gitBlobSha1": "b3fa8f3e90c7fbab148c3168fcc4d097155c0670",
+      "sha256": "d8be376dca195842fe0c83a8df092425f9b873cc25b0b7a975262c242c279484"
+    },
+    {
+      "path": "descrizioni funzionamento/STUDY_GENIUS_METODO_DIDATTICO_MASTER.md",
+      "bytes": 84953,
+      "gitBlobSha1": "99fc7e09217d7318ec5c3f1b72223464ecce0328",
+      "sha256": "72765e3c43f73176ceaaac5ba0a7bd349c59ee06d6e243ebbdc69f812e039437"
+    },
+    {
+      "path": "markdown esempio/modus_operandi_dispensa_universitaria.md",
+      "bytes": 22295,
+      "gitBlobSha1": "db958da189c45d0763e73d8b87a9b57849cc2e05",
+      "sha256": "1c2174481641875131d3b534c5ff33ec6cba8b18459924eed08ff9e566305835"
+    },
+    {
+      "path": "markdown esempio/modus_operandi_fisica.md",
+      "bytes": 32262,
+      "gitBlobSha1": "2a2d1b8a0651cf7bc1042bce4c07ceceec166dd0",
+      "sha256": "8a3b5f14c1461ef88a76bcc61fff82ea7d081dc9dda4ce8a40c72d3635e64296"
+    },
+    {
+      "path": "markdown esempio/modus_operandi_sintesi_alta_densita_fisica.md",
+      "bytes": 22460,
+      "gitBlobSha1": "34ca20f43e3a662ab5430ad9870a1a229bed8428",
+      "sha256": "cb06d9bcad44713eb8cd8ffe220a6328035c4dead623d27264026e763ac3cf8e"
+    },
+    {
+      "path": "markdown esempio/skill_soluzioni_fisica_generale.md",
+      "bytes": 22166,
+      "gitBlobSha1": "fcbed1184025746eceeae0e76f9d93a5ca9580b4",
+      "sha256": "e35f0bbfd50ed213462d1b629266f86c20d0710057313174fcb9ee22d4f75830"
+    },
+    {
+      "path": "markdown.md",
+      "bytes": 77604,
+      "gitBlobSha1": "069198606e973160ba86e3a9097422d11d3933dc",
+      "sha256": "4638e737a1242357569bbef12c6556b3958097961529d44efc5c3b27d53c0cfe"
+    },
+    {
+      "path": "progetto/README.md",
+      "bytes": 48035,
+      "gitBlobSha1": "7f3105ca492c6cc68ebae179d9f4d3f6c61166ad",
+      "sha256": "fb2b48804a3d4f2642caba693a0dd8d08b64baa709606433dd622cd05026b05c"
+    },
+    {
+      "path": "prove/ESEMPIO_CHIMICA_FISICA_CON_GRAFICI.md",
+      "bytes": 44531,
+      "gitBlobSha1": "6e9dae77f310b459108f7cfc1e77cc6eba5b954f",
+      "sha256": "fd2269fff86333c4a47aa099249c45597cace58db76e72101c2001b926887e14"
+    },
+    {
+      "path": "prove/ESEMPIO_CHIMICA_INDUSTRIALE_POMPE.md",
+      "bytes": 72674,
+      "gitBlobSha1": "d3fecc56c7d7ba38089535f807a97920f1a9127c",
+      "sha256": "30cd6db3dc74a76bf957e4a0caf1a9ce0cd36614e12e0b5444332325c6764136"
+    },
+    {
+      "path": "prove/ESEMPIO_SESSIONE_CON_GRAFICI_E_PDF.md",
+      "bytes": 23540,
+      "gitBlobSha1": "689d1ccf872c1cac8a8eb92fd120d0bd715b87f6",
+      "sha256": "60c8ab383d08b7722c6650698f4d9b6508d58bf290680e9739b64ca2a75e7114"
+    },
+    {
+      "path": "schema_processo.svg",
+      "bytes": 17879,
+      "gitBlobSha1": "8be55b805f398699d9beb6c6508c0a4fd5c906c2",
+      "sha256": "02f240263ab125bde25d9e3a199b8f215dd23466297839b8ca1d8a5efdaa5033"
+    },
+    {
+      "path": "trascrizione_cattura.md",
+      "bytes": 8710,
+      "gitBlobSha1": "1e5f56fa27a2ff3c20ae75e5cbd490b8d11680fb",
+      "sha256": "0284e3e9106744b62fbc15f3b9eddd95d88efdfffb673be2d6390712a48c6722"
+    }
+  ]
+}
