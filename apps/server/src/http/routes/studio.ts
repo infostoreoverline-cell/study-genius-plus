@@ -14,6 +14,8 @@ import {
   type StudioProfile,
   type StudioProvider
 } from '../../studio/generator.js';
+import { createStudyPdf } from '../../studio/pdf.js';
+import { createStudyVisuals } from '../../studio/visuals.js';
 
 type SqliteDatabase = Database.Database;
 
@@ -60,6 +62,20 @@ type OutputRow = {
   created_at: string;
   source_name?: string | null;
   project_title?: string | null;
+  visuals_count?: number;
+};
+
+type VisualRow = {
+  id: string;
+  output_id: string;
+  project_id: string;
+  source_id: string;
+  title: string;
+  kind: string;
+  svg: string;
+  alt_text: string;
+  caption: string;
+  created_at: string;
 };
 
 const MAX_FILE_SIZE = 15 * 1024 * 1024;
@@ -257,7 +273,11 @@ export function createStudioRouter(db: SqliteDatabase, blobStorePath: string): R
       return;
     }
     const rows = db.prepare(`
-      SELECT o.*, s.file_name AS source_name, p.title AS project_title
+      SELECT
+        o.*,
+        s.file_name AS source_name,
+        p.title AS project_title,
+        (SELECT COUNT(*) FROM study_visuals AS v WHERE v.output_id = o.id) AS visuals_count
       FROM study_outputs AS o
       LEFT JOIN sources AS s ON s.id = o.source_id
       LEFT JOIN projects AS p ON p.id = o.project_id
@@ -323,13 +343,44 @@ export function createStudioRouter(db: SqliteDatabase, blobStorePath: string): R
 
       const outputId = randomUUID();
       const createdAt = new Date().toISOString();
-      db.prepare(`
-        INSERT INTO study_outputs (id, project_id, source_id, title, profile_id, mode, provider, model, content_md, created_at)
-        VALUES (?, ?, ?, ?, ?, 'RIASSUNTO', ?, ?, ?, ?)
-      `).run(outputId, projectId, sourceId, project.title, profile.id, provider, model, content, createdAt);
+      const generatedVisuals = createStudyVisuals({
+        title: project.title,
+        sourceName: source.file_name,
+        sourceText,
+        profile
+      });
+      const saveOutput = db.transaction(() => {
+        db.prepare(`
+          INSERT INTO study_outputs (id, project_id, source_id, title, profile_id, mode, provider, model, content_md, created_at)
+          VALUES (?, ?, ?, ?, ?, 'RIASSUNTO', ?, ?, ?, ?)
+        `).run(outputId, projectId, sourceId, project.title, profile.id, provider, model, content, createdAt);
+
+        const insertVisual = db.prepare(`
+          INSERT INTO study_visuals (id, output_id, project_id, source_id, title, kind, svg, alt_text, caption, created_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `);
+        generatedVisuals.forEach((visual) => {
+          insertVisual.run(
+            randomUUID(),
+            outputId,
+            projectId,
+            sourceId,
+            visual.title,
+            visual.kind,
+            visual.svg,
+            visual.altText,
+            visual.caption,
+            createdAt
+          );
+        });
+      });
+      saveOutput();
 
       const output = getOutput(db, outputId);
-      res.status(201).json({ output: output ? mapOutput(output) : null });
+      res.status(201).json({
+        output: output ? mapOutput(output) : null,
+        visuals: getOutputVisuals(db, outputId).map(mapVisual)
+      });
     } catch (error) {
       next(error);
     }
@@ -344,13 +395,61 @@ export function createStudioRouter(db: SqliteDatabase, blobStorePath: string): R
     res.json({ output: mapOutput(output) });
   });
 
+  router.get('/outputs/:outputId/visuals', (req: Request, res: Response) => {
+    const output = getOutput(db, routeParam(req.params.outputId));
+    if (!output) {
+      res.status(404).json({ error: 'Risultato non trovato.' });
+      return;
+    }
+    res.json({ visuals: getOutputVisuals(db, output.id).map(mapVisual) });
+  });
+
+  router.get('/visuals/:visualId', (req: Request, res: Response) => {
+    const visual = getVisual(db, routeParam(req.params.visualId));
+    if (!visual) {
+      res.status(404).json({ error: 'Figura non trovata.' });
+      return;
+    }
+    res.json({ visual: mapVisual(visual) });
+  });
+
+  router.get('/visuals/:visualId/download', (req: Request, res: Response) => {
+    const visual = getVisual(db, routeParam(req.params.visualId));
+    if (!visual) {
+      res.status(404).json({ error: 'Figura non trovata.' });
+      return;
+    }
+    const fileName = `${safeDownloadName(visual.title || 'studygenius-figura')}.svg`;
+    res.type('image/svg+xml; charset=utf-8');
+    res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+    res.send(visual.svg);
+  });
+
+  router.get('/outputs/:outputId/download/pdf', (req: Request, res: Response) => {
+    const output = getOutput(db, routeParam(req.params.outputId));
+    if (!output) {
+      res.status(404).json({ error: 'Risultato non trovato.' });
+      return;
+    }
+    const pdf = createStudyPdf({
+      title: output.title,
+      sourceName: output.source_name ?? 'Fonte',
+      content: output.content_md,
+      visuals: getOutputVisuals(db, output.id).map(mapVisual)
+    });
+    const fileName = `${safeDownloadName(output.title || 'studygenius')}-riassunto.pdf`;
+    res.type('application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+    res.send(pdf);
+  });
+
   router.get('/outputs/:outputId/download', (req: Request, res: Response) => {
     const output = getOutput(db, routeParam(req.params.outputId));
     if (!output) {
       res.status(404).json({ error: 'Risultato non trovato.' });
       return;
     }
-    const fileName = `${sanitiseFileName(output.title || 'studygenius')}-riassunto.md`;
+    const fileName = `${safeDownloadName(output.title || 'studygenius')}-riassunto.md`;
     res.type('text/markdown; charset=utf-8');
     res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
     res.send(output.content_md);
@@ -427,6 +526,17 @@ function sanitiseFileName(value: string): string {
   return name || 'fonte';
 }
 
+function safeDownloadName(value: string): string {
+  const ascii = sanitiseFileName(value)
+    .normalize('NFKD')
+    .replace(/\p{Diacritic}/gu, '')
+    .replace(/[^\x20-\x7E]/gu, '-')
+    .replace(/[\s]+/gu, '-')
+    .replace(/-+/gu, '-')
+    .replace(/(^-|-$)/gu, '');
+  return ascii || 'studygenius';
+}
+
 function projectExists(db: SqliteDatabase, projectId: string): boolean {
   return Boolean(db.prepare('SELECT 1 FROM projects WHERE id = ?').get(projectId));
 }
@@ -469,12 +579,33 @@ function getSourceText(db: SqliteDatabase, sourceId: string): string {
 
 function getOutput(db: SqliteDatabase, outputId: string): OutputRow | undefined {
   return db.prepare(`
-    SELECT o.*, s.file_name AS source_name, p.title AS project_title
+    SELECT
+      o.*,
+      s.file_name AS source_name,
+      p.title AS project_title,
+      (SELECT COUNT(*) FROM study_visuals AS v WHERE v.output_id = o.id) AS visuals_count
     FROM study_outputs AS o
     LEFT JOIN sources AS s ON s.id = o.source_id
     LEFT JOIN projects AS p ON p.id = o.project_id
     WHERE o.id = ?
   `).get(outputId) as OutputRow | undefined;
+}
+
+function getOutputVisuals(db: SqliteDatabase, outputId: string): VisualRow[] {
+  return db.prepare(`
+    SELECT id, output_id, project_id, source_id, title, kind, svg, alt_text, caption, created_at
+    FROM study_visuals
+    WHERE output_id = ?
+    ORDER BY created_at ASC, title ASC
+  `).all(outputId) as VisualRow[];
+}
+
+function getVisual(db: SqliteDatabase, visualId: string): VisualRow | undefined {
+  return db.prepare(`
+    SELECT id, output_id, project_id, source_id, title, kind, svg, alt_text, caption, created_at
+    FROM study_visuals
+    WHERE id = ?
+  `).get(visualId) as VisualRow | undefined;
 }
 
 function mapProject(row: ProjectRow) {
@@ -517,7 +648,23 @@ function mapOutput(row: OutputRow) {
     content: row.content_md,
     createdAt: row.created_at,
     sourceName: row.source_name ?? null,
-    projectTitle: row.project_title ?? null
+    projectTitle: row.project_title ?? null,
+    visualsCount: Number(row.visuals_count ?? 0)
+  };
+}
+
+function mapVisual(row: VisualRow) {
+  return {
+    id: row.id,
+    outputId: row.output_id,
+    projectId: row.project_id,
+    sourceId: row.source_id,
+    title: row.title,
+    kind: row.kind,
+    svg: row.svg,
+    altText: row.alt_text,
+    caption: row.caption,
+    createdAt: row.created_at
   };
 }
 

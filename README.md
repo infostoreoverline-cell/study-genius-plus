@@ -11,6 +11,8 @@ StudyGenius+ e una prima release **local-first** per trasformare un PDF o un fil
 - Generazione AI opzionale con Google Gemini o DeepSeek.
 - Archivio locale di fonti e risultati.
 - Lettura, copia e download del riassunto in formato Markdown.
+- Tre visuali SVG per ogni nuovo riassunto: mappa concettuale, schema di studio per materia e grafico delle occorrenze dei concetti nella fonte.
+- Galleria delle visuali, download SVG singolo e PDF del riassunto. Con **PDF con SVG** puoi usare la finestra di stampa del browser per salvare un PDF che include anche le figure vettoriali.
 
 ## Requisiti
 
@@ -48,8 +50,9 @@ Apri [http://localhost:5173](http://localhost:5173). Il server API resta in asco
 1. In **Studio**, crea un progetto e scegli il profilo disciplinare.
 2. Carica una dispensa PDF con testo selezionabile, oppure un file TXT/Markdown.
 3. Seleziona la fonte e premi **Genera in modalita demo**.
-4. Leggi il risultato nella colonna di destra oppure scaricalo con **Scarica .md**.
-5. Tutti i risultati rimangono disponibili in **Archivio**.
+4. Leggi il risultato nella colonna di destra, apri le **Mappe** oppure entra in **Mappe e grafici** nella barra laterale.
+5. Usa **Scarica .md**, **Scarica PDF** oppure **PDF con SVG**. Nell’ultima opzione scegli *Salva come PDF* nella finestra di stampa del browser: è la versione che conserva le figure vettoriali.
+6. Tutti i risultati rimangono disponibili in **Archivio**.
 
 La modalita demo e pensata per rendere l'app utilizzabile subito: costruisce un riepilogo estrattivo, un glossario da consolidare e domande di ripasso a partire dal testo. Per un riassunto piu discorsivo, attiva facoltativamente un provider AI.
 
@@ -83,7 +86,9 @@ npm run verify
 ## Limiti noti della prima release
 
 - I PDF scansiti senza testo selezionabile richiedono OCR esterno; l'OCR automatico non e ancora incluso.
-- L'output pronto e Markdown. Esportazione PDF, diagrammi SVG e modalita di esercizi avanzati sono le prossime evoluzioni.
+- Il grafico presente nell'app mostra le **occorrenze dei concetti nel testo estratto**. Non interpreta numeri, tabelle o misure della materia: per quei grafici serve un flusso di estrazione e revisione dei dati dedicato.
+- Il download PDF diretto contiene il riassunto in una forma stampabile e l'indice delle visuali. Per includere le figure SVG nel PDF, usa **PDF con SVG** e *Salva come PDF* nel browser.
+- Le mappe sono aiuti al ripasso basati sulle parole ricorrenti; formule, tabelle e figure della fonte vanno sempre confrontate con l'originale.
 - La modalita demo non sostituisce il controllo della fonte originale, soprattutto per formule, tabelle e figure.
 
 Per continuare lo sviluppo in Google Antigravity, vedi [HANDOFF_ANTIGRAVITY.md](HANDOFF_ANTIGRAVITY.md).

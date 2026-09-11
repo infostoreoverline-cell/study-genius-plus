@@ -126,6 +126,35 @@
 .markdown-document blockquote { margin: 0 0 20px; padding: 11px 15px; border-left: 3px solid #76cabc; border-radius: 0 8px 8px 0; color: #4f6972; background: #f0faf7; }
 .markdown-document code, .small-note code { padding: 2px 5px; border-radius: 4px; color: #556075; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .88em; background: #f2f4f8; }
 
+.visual-preview { padding: 0 clamp(22px, 4vw, 46px) 48px; }
+.visual-preview-empty { display: grid; gap: 4px; margin: 0 clamp(22px, 4vw, 46px) 42px; padding: 14px 16px; border: 1px dashed #c9d5e2; border-radius: 11px; color: #68778c; font-size: 13px; background: #fbfcfe; }
+.visual-preview-empty strong { color: #475871; }
+.visual-preview-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 15px; margin: 4px 0 15px; padding-top: 22px; border-top: 1px solid #edf0f5; }
+.visual-preview-heading h3 { margin: 4px 0 0; color: #253b52; font-size: 18px; letter-spacing: -.3px; }
+.visual-preview-heading button, .visual-card-topline button { border: 1px solid #bbd9d6; border-radius: 8px; color: #187975; font-size: 12px; font-weight: 750; background: #f4fbfa; }
+.visual-preview-heading button { padding: 8px 10px; }
+.visual-card-topline button { padding: 6px 8px; }
+.visual-preview-heading button:hover, .visual-card-topline button:hover { border-color: #73bdb7; background: #eaf8f5; }
+.visual-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 17px; }
+.visual-card { overflow: hidden; border: 1px solid #dfe7ed; border-radius: 15px; background: #fff; box-shadow: 0 8px 19px rgba(40, 65, 93, .045); }
+.visual-card-topline { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; border-bottom: 1px solid #e7eef0; }
+.visual-card-topline > span { color: #5e7188; font-size: 10px; font-weight: 800; letter-spacing: .045em; text-transform: uppercase; }
+.visual-image { display: block; width: 100%; aspect-ratio: 1.6875; object-fit: cover; background: #f6f9fb; }
+.visual-card-copy { padding: 12px 13px 14px; }
+.visual-card-copy h3 { margin: 0 0 5px; color: #294354; font-size: 15px; letter-spacing: -.2px; }
+.visual-card-copy p { margin: 0; color: #718095; font-size: 12px; line-height: 1.48; }
+.visual-gallery-empty { padding: 25px 0; }
+
+.figures-page { padding: clamp(22px, 4vw, 42px); }
+.figure-page-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 26px; padding-bottom: 22px; border-bottom: 1px solid #e8edf3; }
+.figure-page-heading h2 { margin: 4px 0 7px; color: #213a50; font-size: clamp(22px, 2.5vw, 31px); letter-spacing: -.7px; }
+.figure-page-heading p:not(.eyebrow) { max-width: 690px; margin: 0; color: #6d7c91; font-size: 14px; line-height: 1.56; }
+.output-selector { display: grid; gap: 6px; min-width: min(100%, 270px); color: #647287; font-size: 11px; font-weight: 750; }
+.output-selector select { min-height: 39px; padding: 8px 10px; border: 1px solid #dbe3ed; border-radius: 8px; outline: 0; color: #344761; background: #fbfcff; }
+.empty-figures { min-height: 360px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #718097; text-align: center; }
+.empty-figures h2 { margin: 0 0 8px; color: #3a4b65; font-size: 20px; }
+.empty-figures p { max-width: 500px; margin: 0; line-height: 1.55; font-size: 14px; }
+
 .archive-layout { display: grid; grid-template-columns: minmax(260px, .75fr) minmax(360px, 1.25fr); gap: 23px; }
 .archive-layout .card { padding: 24px; }
 .section-title { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 19px; }
@@ -167,6 +196,9 @@
   .sidebar-footnote { display: none; }
   .main-content { padding: 28px 18px 52px; }
   .page-grid, .archive-layout, .settings-layout { grid-template-columns: 1fr; }
+  .visual-gallery { grid-template-columns: 1fr; }
+  .figure-page-heading { align-items: flex-start; flex-direction: column; }
+  .output-selector { width: 100%; }
   .workspace-panel, .empty-workspace, .result-card { min-height: auto; }
   .empty-workspace { padding: 55px 25px; }
 }
@@ -179,4 +211,7 @@
   .result-header { flex-direction: column; padding: 23px 20px 18px; }
   .result-actions { justify-content: flex-start; }
   .markdown-document { padding: 22px 20px 38px; font-size: 14px; }
+  .visual-preview { padding: 0 20px 34px; }
+  .visual-preview-heading { align-items: flex-start; flex-direction: column; }
+  .figures-page { padding: 21px 19px; }
 }
