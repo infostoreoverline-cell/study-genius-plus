@@ -21,6 +21,17 @@ StudyGenius+ e una prima release **local-first** per trasformare un PDF o un fil
 
 ## Avvio dopo il download della repository
 
+Su Windows, dopo aver scaricato/clonato la repository e installato Node.js 22
+LTS, basta fare doppio clic su **`AVVIA.bat`**. Alla prima esecuzione — e ogni
+volta che cambia la versione di Node — reinstalla correttamente le dipendenze,
+avvia API e interfaccia e apre automaticamente
+`http://127.0.0.1:5173` nel browser. Per fermare l'app usa
+**`CHIUDI SERVER.bat`**.
+
+Questo avvio e **locale**, come nella versione precedente: non crea un sito
+pubblico su Internet. Di conseguenza PDF, archivio e chiavi API restano sul
+tuo PC. Per l'avvio manuale o su macOS/Linux usa questi comandi:
+
 ```bash
 git clone https://github.com/infostoreoverline-cell/study-genius-plus.git
 cd study-genius-plus
